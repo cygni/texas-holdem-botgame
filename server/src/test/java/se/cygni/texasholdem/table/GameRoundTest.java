@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import se.cygni.texasholdem.communication.message.event.PlayIsStartedEvent;
 import se.cygni.texasholdem.communication.message.event.TexasEvent;
 import se.cygni.texasholdem.game.BotPlayer;
@@ -16,8 +16,8 @@ import se.cygni.texasholdem.server.session.SessionManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 

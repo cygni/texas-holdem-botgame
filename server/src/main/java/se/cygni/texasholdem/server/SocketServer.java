@@ -121,6 +121,7 @@ public class SocketServer {
 
             log.info("Message handler exception: {}",
                     e.getCause() != null ? e.getCause().getClass().getCanonicalName() : e.getClass().getCanonicalName());
+            log.error("exception caught in socket server:", e.getCause());
         }
     }
 }

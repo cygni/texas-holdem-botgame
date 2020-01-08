@@ -73,4 +73,44 @@ public class GameLog {
     public String getExecutionDate() {
         return sdf.format(executionDate);
     }
+
+    public void setPlayers(List<PlayerInGame> players) {
+        this.players = players;
+    }
+
+    public void setBigBlindValue(long bigBlindValue) {
+        this.bigBlindValue = bigBlindValue;
+    }
+
+    public void setSmallBlindValue(long smallBlindValue) {
+        this.smallBlindValue = smallBlindValue;
+    }
+
+    public void setCommunityCards(List<Card> communityCards) {
+        this.communityCards = communityCards;
+    }
+
+    public void setLogPosition(int logPosition) {
+        this.logPosition = logPosition;
+    }
+
+    public void setTableCounter(long tableCounter) {
+        this.tableCounter = tableCounter;
+    }
+
+    public void setRoundNumber(int roundNumber) {
+        this.roundNumber = roundNumber;
+    }
+
+    public void setLastGame(boolean lastGame) {
+        this.lastGame = lastGame;
+    }
+
+    public void setKnownNoofRounds(int knownNoofRounds) {
+        this.knownNoofRounds = knownNoofRounds;
+    }
+
+    public void setExecutionDate(Date executionDate) {
+        this.executionDate = executionDate;
+    }
 }

@@ -5,52 +5,14 @@
     <parent>
         <groupId>se.cygni</groupId>
         <artifactId>texas-holdem-botgame</artifactId>
-        <version>1.1.21-SNAPSHOT</version>
-        <relativePath>../../../texas-holdem-botgame</relativePath>
+        <version>1.1.22-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
     </parent>
 
     <groupId>se.cygni</groupId>
     <artifactId>texas-holdem-statistics</artifactId>
     <packaging>jar</packaging>
     <name>texas-holdem-statistics</name>
-
-    <build>
-        <plugins>
-            <!-- Use this assembly to create standalone app -->
-            <!--
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>se.cygni.texasholdem.player.\\CHANGE_TO_YOUR_PLAYER_CLASS//</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-my-jar-with-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,10 +45,4 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>poker.cygni.s</id>
-            <url>http://poker.cygni.se/maven2</url>
-        </repository>
-    </repositories>
 </project>

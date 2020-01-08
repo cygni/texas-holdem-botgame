@@ -8,7 +8,7 @@ public class BotPlayer {
     private final String name;
     private final String sessionId;
     private long chipAmount;
-    private final List<Card> cards = new ArrayList();
+    private final List<Card> cards = new ArrayList<>();
 
     public BotPlayer(final String name, final String sessionId,
                      final long chipAmount) {
@@ -55,7 +55,7 @@ public class BotPlayer {
 
     public List<Card> getCards() {
 
-        return new ArrayList(cards);
+        return new ArrayList<>(cards);
     }
 
     public void receiveCard(final Card c) {
@@ -98,13 +98,8 @@ public class BotPlayer {
         }
         final BotPlayer other = (BotPlayer) obj;
         if (sessionId == null) {
-            if (other.sessionId != null) {
-                return false;
-            }
+            return other.sessionId == null;
         }
-        else if (!sessionId.equals(other.sessionId)) {
-            return false;
-        }
-        return true;
+        else return sessionId.equals(other.sessionId);
     }
 }

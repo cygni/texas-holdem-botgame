@@ -5,8 +5,8 @@
     <parent>
         <groupId>se.cygni</groupId>
         <artifactId>texas-holdem-botgame</artifactId>
-        <version>1.1.21-SNAPSHOT</version>
-        <relativePath>../../../texas-holdem-botgame</relativePath>
+        <version>1.1.22-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
     </parent>
 
     <groupId>se.cygni</groupId>
@@ -14,48 +14,9 @@
     <packaging>jar</packaging>
     <name>texas-holdem-java-client</name>
 
-    <build>
-        <plugins>
-            <!-- Use this assembly to create standalone app -->
-            <!--
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>se.cygni.texasholdem.player.\\CHANGE_TO_YOUR_PLAYER_CLASS//</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-my-jar-with-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <targetJdk>1.7</targetJdk>
     </properties>
 
     <dependencies>
@@ -104,62 +65,10 @@
         </dependency>
     </dependencies>
 
-    <!--
-         This profile is just for packaging and deploying on
-         the CI-server. If you are developing a java-bot you
-         can disregard this section. It is only activated by
-         the profile: production
-     -->
-    <profiles>
-        <profile>
-            <id>production</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <!-- Packages this project in a zip for download -->
-                                <id>copy-downloadable-artifacts</id>
-                                <phase>deploy</phase>
-                                <configuration>
-                                    <target>
-                                        <mkdir dir="${basedir}/target/zip/${project.name}-${project.version}" />
-                                        <copy todir="${basedir}/target/zip/${project.name}-${project.version}">
-                                            <fileset dir="${basedir}">
-                                                <include name="**" />
-                                                <exclude name="**/.idea/**" />
-                                                <exclude name="**/.git/**" />
-                                                <exclude name="**/target/**" />
-                                                <exclude name="**/*.iml" />
-                                            </fileset>
-                                        </copy>
-
-                                        <zip destfile="${public.web.dir}/download/${project.name}-${project.version}.zip" encoding="UTF-8">
-                                            <fileset dir="${basedir}/target/zip">
-                                                <include name="**" />
-                                            </fileset>
-                                        </zip>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-
-        </profile>
-
-    </profiles>
-
-    <repositories>
-        <repository>
-            <id>poker.cygni.s</id>
-            <url>http://poker.cygni.se/maven2</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>poker.cygni.se</id>-->
+<!--            <url>http://poker.cygni.se/maven2</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 </project>

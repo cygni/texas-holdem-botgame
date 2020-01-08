@@ -5,8 +5,8 @@
     <parent>
         <groupId>se.cygni</groupId>
         <artifactId>texas-holdem-botgame</artifactId>
-        <version>1.1.21-SNAPSHOT</version>
-        <relativePath>../../../texas-holdem-botgame</relativePath>
+        <version>1.1.22-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
     </parent>
 
     <artifactId>texas-holdem-performance-tests</artifactId>
@@ -19,41 +19,6 @@
                 <directory>${project.basedir}/src/main/resources</directory>
             </resource>
         </resources>
-
-        <plugins>
-            <!-- Enable this on demand only
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>se.cygni.texasholdem.player.PerformanceTestPlayer</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-my-jar-with-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
     <dependencies>

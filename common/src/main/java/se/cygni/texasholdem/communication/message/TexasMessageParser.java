@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import se.cygni.texasholdem.communication.message.type.IsATexasMessage;
 
@@ -35,12 +36,15 @@ public final class TexasMessageParser {
     // Init typeToClass map
     static {
         final ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(
-                true);
+                false);
+        scanner.setResourceLoader(new PathMatchingResourcePatternResolver(Thread.currentThread().getContextClassLoader()));
         scanner.addIncludeFilter(new AnnotationTypeFilter(IsATexasMessage.class));
+
 
         for (final BeanDefinition bd : scanner
                 .findCandidateComponents("se.cygni.texasholdem.communication.message")) {
 
+            log.info(bd.getBeanClassName());
             try {
                 typeToClass.put(bd.getBeanClassName(),
                         (Class<? extends TexasMessage>) Class.forName(bd
@@ -61,7 +65,7 @@ public final class TexasMessageParser {
 
         } catch (Exception ioe) {
             log.error("Failed to read application.properties", ioe);
-            currentVersion = "unkown";
+            currentVersion = "unknown";
         }
     }
 

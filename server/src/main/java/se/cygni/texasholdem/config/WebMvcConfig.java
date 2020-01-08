@@ -1,29 +1,22 @@
 package se.cygni.texasholdem.config;
 
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCache;
-import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.servlet.view.tiles2.TilesConfigurer;
-import org.springframework.web.servlet.view.tiles2.TilesViewResolver;
-
-import java.util.Arrays;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 @EnableCaching
 @ComponentScan(basePackages = {"se.cygni.webapp"})
+@EnableWebMvc
 @ImportResource("classpath:spring-global-method-security.xml")
-public class WebMvcConfig extends WebMvcConfigurationSupport {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     private static final String MESSAGE_SOURCE = "/WEB-INF/classes/application";
     private static final String TILES = "/WEB-INF/tiles/tiles.xml";
@@ -32,13 +25,13 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     private static final String RESOURCES_HANDLER = "/resources/";
     private static final String RESOURCES_LOCATION = RESOURCES_HANDLER + "**";
 
-    @Override
-    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-        RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
-        requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
-        requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
-        return requestMappingHandlerMapping;
-    }
+//    @Override
+//    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+//        RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
+//        requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
+//        requestMappingHandlerMapping.setUseTrailingSlashMatch(false);
+//        return requestMappingHandlerMapping;
+//    }
 
     @Bean(name = "messageSource")
     public MessageSource configureMessageSource() {
@@ -48,10 +41,15 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         return messageSource;
     }
 
-    @Bean
-    public TilesViewResolver configureTilesViewResolver() {
-        return new TilesViewResolver();
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        TilesViewResolver viewResolver = new TilesViewResolver();
+        registry.viewResolver(viewResolver);
     }
+//    @Bean
+//    public TilesViewResolver configureTilesViewResolver() {
+//        return new TilesViewResolver();
+//    }
 
     @Bean
     public TilesConfigurer configureTilesConfigurer() {

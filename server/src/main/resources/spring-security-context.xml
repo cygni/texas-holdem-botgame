@@ -1,3 +1,4 @@
+<!--
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:security="http://www.springframework.org/schema/security"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -21,3 +22,26 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     </security:authentication-manager>
 
 </beans>
+-->
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true">
+        <intercept-url pattern="/tournament*" access="hasRole('ROLE_ADMIN')"/>
+        <http-basic/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+
+                <user name="emil" password="{noop}lime" authorities="ROLE_ADMIN"/>
+                <user name="jonas" password="{noop}sanoj" authorities="ROLE_ADMIN"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</b:beans>

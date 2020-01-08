@@ -142,9 +142,9 @@ public class DummyPlayer extends BasicPlayer {
     public void connectionToGameServerLost() {
         log.info("I've lost my connection to the game server!");
         log.info("Connecting for another game!");
-        populateNewName();
-        playAGame();
-//        System.exit(0);
+//        populateNewName();
+//        playAGame();
+        System.exit(0);
     }
 
     @Override
