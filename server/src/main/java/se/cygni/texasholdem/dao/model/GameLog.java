@@ -26,16 +26,32 @@ public class GameLog {
         return players;
     }
 
+    public void setPlayers(List<PlayerInGame> players) {
+        this.players = players;
+    }
+
     public long getBigBlindValue() {
         return bigBlindValue;
+    }
+
+    public void setBigBlindValue(long bigBlindValue) {
+        this.bigBlindValue = bigBlindValue;
     }
 
     public long getSmallBlindValue() {
         return smallBlindValue;
     }
 
+    public void setSmallBlindValue(long smallBlindValue) {
+        this.smallBlindValue = smallBlindValue;
+    }
+
     public List<Card> getCommunityCards() {
         return communityCards;
+    }
+
+    public void setCommunityCards(List<Card> communityCards) {
+        this.communityCards = communityCards;
     }
 
     public List<Card> getFlopCards() {
@@ -54,60 +70,44 @@ public class GameLog {
         return logPosition;
     }
 
-    public long getTableCounter() {
-        return tableCounter;
-    }
-
-    public int getRoundNumber() {
-        return roundNumber;
-    }
-
-    public boolean isLastGame() {
-        return lastGame;
-    }
-
-    public int getKnownNoofRounds() {
-        return knownNoofRounds;
-    }
-
-    public String getExecutionDate() {
-        return sdf.format(executionDate);
-    }
-
-    public void setPlayers(List<PlayerInGame> players) {
-        this.players = players;
-    }
-
-    public void setBigBlindValue(long bigBlindValue) {
-        this.bigBlindValue = bigBlindValue;
-    }
-
-    public void setSmallBlindValue(long smallBlindValue) {
-        this.smallBlindValue = smallBlindValue;
-    }
-
-    public void setCommunityCards(List<Card> communityCards) {
-        this.communityCards = communityCards;
-    }
-
     public void setLogPosition(int logPosition) {
         this.logPosition = logPosition;
+    }
+
+    public long getTableCounter() {
+        return tableCounter;
     }
 
     public void setTableCounter(long tableCounter) {
         this.tableCounter = tableCounter;
     }
 
+    public int getRoundNumber() {
+        return roundNumber;
+    }
+
     public void setRoundNumber(int roundNumber) {
         this.roundNumber = roundNumber;
+    }
+
+    public boolean isLastGame() {
+        return lastGame;
     }
 
     public void setLastGame(boolean lastGame) {
         this.lastGame = lastGame;
     }
 
+    public int getKnownNoofRounds() {
+        return knownNoofRounds;
+    }
+
     public void setKnownNoofRounds(int knownNoofRounds) {
         this.knownNoofRounds = knownNoofRounds;
+    }
+
+    public String getExecutionDate() {
+        return sdf.format(executionDate);
     }
 
     public void setExecutionDate(Date executionDate) {

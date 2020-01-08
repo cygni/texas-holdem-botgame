@@ -12,8 +12,6 @@ public final class Deck {
 
     private static final List<Card> protoDeck = new ArrayList<Card>();
 
-    private final List<Card> cards;
-
     // Initialize prototype deck
     static {
         for (final Suit suit : Suit.values()) {
@@ -22,6 +20,8 @@ public final class Deck {
             }
         }
     }
+
+    private final List<Card> cards;
 
     private Deck(final List<Card> cards) {
 

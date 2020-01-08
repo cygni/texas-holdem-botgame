@@ -308,8 +308,7 @@ public class GameRound {
                 if (player.getChipAmount() == 0) {
                     log.debug("{} went all in with amount {}", player.getName(), action.getAmount());
                     EventBusUtil.postPlayerWentAllIn(eventBus, player, action.getAmount(), players);
-                }
-                else {
+                } else {
                     log.debug("{} raised with amount {}", player.getName(), action.getAmount());
                     EventBusUtil.postPlayerRaised(eventBus, player, action.getAmount(), players);
                 }

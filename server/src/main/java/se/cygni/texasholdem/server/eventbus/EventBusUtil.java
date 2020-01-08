@@ -1,8 +1,8 @@
 package se.cygni.texasholdem.server.eventbus;
 
 import com.google.common.eventbus.EventBus;
-import se.cygni.texasholdem.communication.message.event.*;
 import se.cygni.texasholdem.communication.message.event.PlayerQuitEvent;
+import se.cygni.texasholdem.communication.message.event.*;
 import se.cygni.texasholdem.game.BotPlayer;
 import se.cygni.texasholdem.game.Card;
 import se.cygni.texasholdem.util.PlayerTypeConverter;

@@ -30,15 +30,15 @@ public class SystemSettings {
         return port;
     }
 
-    public String getHost() {
-
-        return host;
-    }
-
     @SuppressWarnings("unused")
     private void setPort(final int port) {
 
         this.port = port;
+    }
+
+    public String getHost() {
+
+        return host;
     }
 
     @SuppressWarnings("unused")

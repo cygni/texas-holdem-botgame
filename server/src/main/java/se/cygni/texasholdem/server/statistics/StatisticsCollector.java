@@ -114,7 +114,7 @@ public final class StatisticsCollector {
         return tableIds;
     }
 
-//    @Cacheable("statistics-actions")
+    //    @Cacheable("statistics-actions")
     public StatsActions getStatsActions(final long tableId, final int position) {
         TableHistory tableHistory = getTableHistory(tableId);
 
@@ -122,15 +122,14 @@ public final class StatisticsCollector {
 
         if (position < 0 || position > tableHistory.gameLogs.size()) {
             sa.recordsGameLogs(tableHistory.gameLogs);
-        }
-        else {
+        } else {
             sa.recordsGameLogs(tableHistory.gameLogs.subList(0, position + 1));
         }
 
         return sa;
     }
 
-//    @Cacheable("statistics-chips")
+    //    @Cacheable("statistics-chips")
     public StatsChips getStatsChips(final long tableId, final int position) {
         TableHistory tableHistory = getTableHistory(tableId);
 
@@ -138,8 +137,7 @@ public final class StatisticsCollector {
 
         if (position < 0 || position > tableHistory.gameLogs.size()) {
             sc.recordGameLogs(tableHistory.gameLogs);
-        }
-        else {
+        } else {
             sc.recordGameLogs(tableHistory.gameLogs.subList(0, position + 1));
         }
 
@@ -169,7 +167,7 @@ public final class StatisticsCollector {
         return null;
     }
 
-//    @Cacheable("gamelog")
+    //    @Cacheable("gamelog")
     public GameLog getGameLogAtPos(final long tableId, int position) {
         try {
             TableHistory th = getTableHistory(tableId);
@@ -215,16 +213,16 @@ public final class StatisticsCollector {
             this.tableId = tableId;
         }
 
-        public void setGameEnded(boolean gameEnded) {
-            this.gameEnded = gameEnded;
-        }
-
         public long getTableId() {
             return tableId;
         }
 
         public boolean isGameEnded() {
             return gameEnded;
+        }
+
+        public void setGameEnded(boolean gameEnded) {
+            this.gameEnded = gameEnded;
         }
 
         public GameLog getFirstGameLog() {

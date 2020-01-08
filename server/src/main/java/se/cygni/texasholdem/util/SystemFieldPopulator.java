@@ -41,12 +41,12 @@ public class SystemFieldPopulator {
                     f.set(target, valueFromSystem);
 
                     log.info("Overriding property {} to {} for "
-                            + target.getClass().getSimpleName(), f.getName(),
+                                    + target.getClass().getSimpleName(), f.getName(),
                             valueFromSystem);
 
                 } catch (final Exception e) {
                     log.warn("Failed to override property {} to {} for "
-                            + target.getClass().getSimpleName(), f.getName(),
+                                    + target.getClass().getSimpleName(), f.getName(),
                             valueFromSystem);
                 }
             }

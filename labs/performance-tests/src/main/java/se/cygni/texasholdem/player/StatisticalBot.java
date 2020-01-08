@@ -18,16 +18,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class StatisticalBot extends BasicPlayer {
 
-    private static Logger log = LoggerFactory
-            .getLogger(StatisticalBot.class);
-
     private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 4711;
-
+    private static Logger log = LoggerFactory
+            .getLogger(StatisticalBot.class);
     private PlayerClient playerClient;
 
     public StatisticalBot() {
         playerClient = new PlayerClient(this, DEFAULT_HOST, DEFAULT_PORT);
+    }
+
+    public static void main(String[] args) {
+        StatisticalBot player = new StatisticalBot();
+        player.playAGame();
     }
 
     @Override
@@ -167,7 +170,6 @@ public class StatisticalBot extends BasicPlayer {
      *
      * @param myPokerHand
      * @param otherPokerHand
-     *
      * @return TRUE if myPokerHand is valued higher than otherPokerHand
      */
     private boolean isHandBetterThan(PokerHand myPokerHand, PokerHand otherPokerHand) {
@@ -244,6 +246,22 @@ public class StatisticalBot extends BasicPlayer {
 
     private CurrentPlayState getCurrentPlayState() {
         return playerClient.getCurrentPlayState();
+    }
+
+    @Override
+    public String getName() {
+        return "Statistical";
+    }
+
+    public void playAGame() {
+        try {
+            playerClient.connect();
+            playerClient.registerForPlay(Room.TRAINING);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
     }
 
     private class ActionManager {
@@ -365,27 +383,6 @@ public class StatisticalBot extends BasicPlayer {
 
         public Card getNextCard() {
             return deck.remove(0);
-        }
-    }
-
-    @Override
-    public String getName() {
-        return "Statistical";
-    }
-
-    public static void main(String[] args) {
-        StatisticalBot player = new StatisticalBot();
-        player.playAGame();
-    }
-
-    public void playAGame() {
-        try {
-            playerClient.connect();
-            playerClient.registerForPlay(Room.TRAINING);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
         }
     }
 }

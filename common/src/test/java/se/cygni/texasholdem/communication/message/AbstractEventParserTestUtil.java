@@ -12,22 +12,6 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractEventParserTestUtil {
 
-    protected <T extends TexasMessage> T assertEncodeDecode(final T message)
-            throws JsonParseException, JsonMappingException, IOException {
-
-        final String jsonMsg = TexasMessageParser.encodeMessage(message);
-
-        assertEquals(message.getClass(),
-                TexasMessageParser.parseAndGetClassForMessage(jsonMsg));
-
-        final TexasMessage tMessage = TexasMessageParser
-                .decodeMessage(jsonMsg);
-
-        assertEquals(message.getClass(), tMessage.getClass());
-
-        return (T) tMessage;
-    }
-
     protected static void assertEqualss(
             final GamePlayer expected,
             final GamePlayer actual) {
@@ -54,5 +38,21 @@ public abstract class AbstractEventParserTestUtil {
         for (int i = 0; i < expected.getCards().size(); i++) {
             assertEquals(expected.getCards().get(i), actual.getCards().get(i));
         }
+    }
+
+    protected <T extends TexasMessage> T assertEncodeDecode(final T message)
+            throws JsonParseException, JsonMappingException, IOException {
+
+        final String jsonMsg = TexasMessageParser.encodeMessage(message);
+
+        assertEquals(message.getClass(),
+                TexasMessageParser.parseAndGetClassForMessage(jsonMsg));
+
+        final TexasMessage tMessage = TexasMessageParser
+                .decodeMessage(jsonMsg);
+
+        assertEquals(message.getClass(), tMessage.getClass());
+
+        return (T) tMessage;
     }
 }

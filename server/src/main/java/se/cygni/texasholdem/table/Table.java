@@ -19,12 +19,10 @@ import java.util.*;
 
 public class Table implements Runnable {
 
-    private static Logger log = LoggerFactory
-            .getLogger(Table.class);
-
     public static final String COUNTER_ID = "table";
     public static final int MAX_NOOF_PLAYERS = 11;
-
+    private static Logger log = LoggerFactory
+            .getLogger(Table.class);
     protected final String tableId = UUID.randomUUID().toString();
     protected final long tableCounter;
 
@@ -227,8 +225,7 @@ public class Table implements Runnable {
             if (other.tableId != null) {
                 return false;
             }
-        }
-        else if (!tableId.equals(other.tableId)) {
+        } else if (!tableId.equals(other.tableId)) {
             return false;
         }
         return true;

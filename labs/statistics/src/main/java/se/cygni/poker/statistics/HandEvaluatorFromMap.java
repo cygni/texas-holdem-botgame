@@ -41,7 +41,6 @@ public class HandEvaluatorFromMap {
 
     /**
      * @param positions
-     *
      * @return a List containing all permutations for removals
      */
     public static List<int[]> getAllCombinationsOfRemovals(int positions[]) {

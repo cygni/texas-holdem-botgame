@@ -39,60 +39,60 @@ public class TableTest {
     }
     /*
      * @Test public void testShiftRolesForPlayers() {
-     * 
+     *
      * table.shiftRolesForPlayers(); assertEquals(pA, table.getDealerPlayer());
      * assertEquals(pB, table.getSmallBlindPlayer()); assertEquals(pC,
      * table.getBigBlindPlayer());
-     * 
+     *
      * table.shiftRolesForPlayers(); assertEquals(pB, table.getDealerPlayer());
      * assertEquals(pC, table.getSmallBlindPlayer()); assertEquals(pD,
      * table.getBigBlindPlayer());
-     * 
+     *
      * table.shiftRolesForPlayers(); assertEquals(pC, table.getDealerPlayer());
      * assertEquals(pD, table.getSmallBlindPlayer()); assertEquals(pA,
      * table.getBigBlindPlayer());
-     * 
+     *
      * }
-     * 
+     *
      * @Test public void testShiftRolesForPlayersWhenOnePlayerIsOut() {
-     * 
+     *
      * table.shiftRolesForPlayers(); assertEquals(pA, table.getDealerPlayer());
      * assertEquals(pB, table.getSmallBlindPlayer()); assertEquals(pC,
      * table.getBigBlindPlayer());
-     * 
+     *
      * // pC lost everything pC.getChips(1000);
-     * 
+     *
      * table.shiftRolesForPlayers(); assertEquals(pB, table.getDealerPlayer());
      * assertEquals(pD, table.getSmallBlindPlayer()); assertEquals(pA,
      * table.getBigBlindPlayer());
-     * 
+     *
      * table.shiftRolesForPlayers(); assertEquals(pD, table.getDealerPlayer());
      * assertEquals(pA, table.getSmallBlindPlayer()); assertEquals(pB,
      * table.getBigBlindPlayer());
-     * 
+     *
      * }
-     * 
+     *
      * @Test public void testShiftRolesForPlayersWhenOnlyTwoPlayers() {
-     * 
+     *
      * table = new Table(new GamePlan(), null, new EventBus());
      * table.addPlayer(pA); table.addPlayer(pB);
-     * 
+     *
      * table.shiftRolesForPlayers(); assertEquals(pA, table.getDealerPlayer());
      * assertEquals(pB, table.getSmallBlindPlayer()); assertEquals(pA,
      * table.getBigBlindPlayer());
-     * 
+     *
      * table.shiftRolesForPlayers(); assertEquals(pB, table.getDealerPlayer());
      * assertEquals(pA, table.getSmallBlindPlayer()); assertEquals(pB,
      * table.getBigBlindPlayer()); }
-     * 
+     *
      * @Test public void testIsThereAWinner() {
-     * 
+     *
      * Assert.assertFalse(table.isThereAWinner());
-     * 
+     *
      * pA.getChips(25); Assert.assertFalse(table.isThereAWinner());
-     * 
+     *
      * pB.getChips(1000); Assert.assertFalse(table.isThereAWinner());
-     * 
+     *
      * pC.getChips(1000); Assert.assertTrue(table.isThereAWinner()); }
      */
 }

@@ -94,7 +94,6 @@ public class ClientEventDispatcher {
      * Returns true if the Method m is also declared in the interface.
      *
      * @param m
-     *
      * @return
      */
     private boolean isDeclaredInInterface(final Method m) {
@@ -133,8 +132,7 @@ public class ClientEventDispatcher {
             } catch (final Exception e) {
                 log.error("Failed to invoke target method", e);
             }
-        }
-        else {
+        } else {
             log.warn(
                     "Could not dispatch event of type: {}, no matching method found",
                     eventClass.getSimpleName());

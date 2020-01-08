@@ -68,7 +68,7 @@ public class SocketServer {
                         new StringDecoder(CharsetUtil.UTF_8),
                         new StringEncoder(CharsetUtil.UTF_8),
                         new TexasMessageHandler(messageReceiver)
-                                        );
+                );
             }
 
             ;

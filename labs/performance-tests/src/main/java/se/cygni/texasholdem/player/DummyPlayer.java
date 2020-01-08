@@ -11,21 +11,23 @@ import se.cygni.texasholdem.game.Room;
 
 public class DummyPlayer extends BasicPlayer {
 
-    private static Logger log = LoggerFactory
-            .getLogger(DummyPlayer.class);
-
     private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 4711;
-
     private static final String HOST_PROPERTY = "host";
     private static final String PORT_PROPERTY = "port";
-
+    private static Logger log = LoggerFactory
+            .getLogger(DummyPlayer.class);
     private String name = "dummmy_1";
 
     private PlayerClient playerClient;
 
     public DummyPlayer() {
         playerClient = new PlayerClient(this, getServerHost(), getServerPort());
+    }
+
+    public static void main(String[] args) {
+        DummyPlayer player = new DummyPlayer();
+        player.playAGame();
     }
 
     private void populateNewName() {
@@ -54,11 +56,6 @@ public class DummyPlayer extends BasicPlayer {
         }
 
         return DEFAULT_PORT;
-    }
-
-    public static void main(String[] args) {
-        DummyPlayer player = new DummyPlayer();
-        player.playAGame();
     }
 
     public void playAGame() {
@@ -126,11 +123,9 @@ public class DummyPlayer extends BasicPlayer {
         Action action = null;
         if (callAction != null) {
             action = callAction;
-        }
-        else if (checkAction != null) {
+        } else if (checkAction != null) {
             action = checkAction;
-        }
-        else {
+        } else {
             action = foldAction;
         }
         log.info("My time to act. Going to {} in state {}", action, playerClient.getCurrentPlayState().getCurrentPlayState());

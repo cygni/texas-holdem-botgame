@@ -17,18 +17,14 @@ public abstract class Room {
 
     private static Logger log = LoggerFactory
             .getLogger(Room.class);
-
+    private static long playerTrainerCounter = 0;
     protected final List<Table> tables = Collections
             .synchronizedList(new ArrayList<Table>());
-
     protected final Set<BotPlayer> playerPool = Collections
             .synchronizedSet(new HashSet<BotPlayer>());
-
     protected final EventBus eventBus;
-    protected GamePlan gamePlan;
     protected final SessionManager sessionManager;
-
-    private static long playerTrainerCounter = 0;
+    protected GamePlan gamePlan;
 
     public Room(final EventBus eventBus, final GamePlan gamePlan,
                 final SessionManager sessionManager) {
@@ -50,8 +46,7 @@ public abstract class Room {
         final Table table = getTableForPlayer(player);
         if (table != null) {
             table.removePlayer(player);
-        }
-        else {
+        } else {
             log.debug("Couldn't find table for user!?");
         }
 

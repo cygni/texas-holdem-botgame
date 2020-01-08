@@ -100,7 +100,6 @@ public class SensiblePlayer extends TrainingPlayer {
      *
      * @param myPokerHand
      * @param otherPokerHand
-     *
      * @return TRUE if myPokerHand is valued higher than otherPokerHand
      */
     private boolean isHandBetterThan(PokerHand myPokerHand, PokerHand otherPokerHand) {

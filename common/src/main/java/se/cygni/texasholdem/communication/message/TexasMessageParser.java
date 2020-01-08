@@ -22,15 +22,11 @@ import java.util.Properties;
 @SuppressWarnings("unchecked")
 public final class TexasMessageParser {
 
-    private static Logger log = LoggerFactory.getLogger(TexasMessageParser.class);
-
-    private static String currentVersion = null;
-
-    private static ObjectMapper mapper = new ObjectMapper();
-
-    private static JsonFactory factory = new JsonFactory();
     private static final String TYPE_IDENTIFIER = "type";
-
+    private static Logger log = LoggerFactory.getLogger(TexasMessageParser.class);
+    private static String currentVersion = null;
+    private static ObjectMapper mapper = new ObjectMapper();
+    private static JsonFactory factory = new JsonFactory();
     private static Map<String, Class<? extends TexasMessage>> typeToClass = new HashMap<String, Class<? extends TexasMessage>>();
 
     // Init typeToClass map

@@ -250,8 +250,7 @@ public class PokerHandUtil {
                             .get(0).getRank().getOrderValue()) {
                         potentialThreeOfAKind = threeOfAKind;
                     }
-                }
-                else {
+                } else {
                     potentialThreeOfAKind = entry.getValue();
                 }
             }
@@ -309,8 +308,7 @@ public class PokerHandUtil {
                 }
 
                 potentialOnePair = entry.getValue();
-            }
-            else if (entry.getValue().size() > 2) {
+            } else if (entry.getValue().size() > 2) {
                 throw new RuntimeException(
                         "There exists a better match than one pair");
             }

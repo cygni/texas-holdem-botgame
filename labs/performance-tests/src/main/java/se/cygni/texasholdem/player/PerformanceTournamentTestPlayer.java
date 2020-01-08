@@ -19,28 +19,21 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class PerformanceTournamentTestPlayer extends BasicPlayer {
 
-    private static Logger log = LoggerFactory
-            .getLogger(PerformanceTournamentTestPlayer.class);
-
     private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 4711;
     private static final String DEFAULT_NAME = "perftest";
     private static final int DEFAULT_NOOF_PLAYERS = 25;
-
     private static final AtomicInteger counter = new AtomicInteger(0);
-
     private static final String HOST_PROPERTY = "host";
     private static final String PORT_PROPERTY = "port";
     private static final String NAME_PROPERTY = "name";
     private static final String NOOF_PLAYERS_PROPERTY = "noof";
-
-
-    private PlayerClient playerClient;
-    private final String name;
-
+    private static Logger log = LoggerFactory
+            .getLogger(PerformanceTournamentTestPlayer.class);
     private static AtomicLong noofNewPlays = new AtomicLong(0);
     private static AtomicLong totalLengthOfPlays = new AtomicLong(0);
-
+    private final String name;
+    private PlayerClient playerClient;
     private long lastNewGame;
     private RandomAdaptor random = new RandomAdaptor(new JDKRandomGenerator());
 
@@ -73,6 +66,42 @@ public class PerformanceTournamentTestPlayer extends BasicPlayer {
         return defaultValue;
     }
 
+    public static void main(String[] args) {
+
+        int noofPlayers = getSystemProperty(NOOF_PLAYERS_PROPERTY, DEFAULT_NOOF_PLAYERS);
+
+        for (int i = 0; i < noofPlayers; i++) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    PerformanceTournamentTestPlayer player = new PerformanceTournamentTestPlayer();
+                    player.playAGame();
+                }
+            });
+
+            t.start();
+            log.info("Started player {}", i);
+
+            try {
+                Thread.sleep(100);
+            } catch (Exception w) {
+            }
+        }
+
+        final Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (noofNewPlays.longValue() < 1) {
+                    return;
+                }
+
+                log.info("Noof plays: {}, average game bout time (ms) {}", noofNewPlays.longValue(), totalLengthOfPlays.longValue() / noofNewPlays.longValue());
+
+            }
+        }, 5000, 1000);
+    }
+
     public void playAGame() {
         try {
             playerClient.connect();
@@ -97,8 +126,7 @@ public class PerformanceTournamentTestPlayer extends BasicPlayer {
             totalLengthOfPlays.addAndGet(System.currentTimeMillis() - lastNewGame);
             lastNewGame = System.currentTimeMillis();
             noofNewPlays.incrementAndGet();
-        }
-        else {
+        } else {
             lastNewGame = System.currentTimeMillis();
         }
     }
@@ -143,25 +171,16 @@ public class PerformanceTournamentTestPlayer extends BasicPlayer {
         else if (callAction != null && raiseAction != null) {
             if (randomVal < 0.90) {
                 action = callAction;
-            }
-            else {
+            } else {
                 action = raiseAction;
             }
-        }
-
-        else if (raiseAction != null) {
+        } else if (raiseAction != null) {
             action = raiseAction;
-        }
-
-        else if (callAction != null) {
+        } else if (callAction != null) {
             action = callAction;
-        }
-
-        else if (checkAction != null) {
+        } else if (checkAction != null) {
             action = checkAction;
-        }
-
-        else {
+        } else {
             action = foldAction;
         }
 
@@ -180,41 +199,5 @@ public class PerformanceTournamentTestPlayer extends BasicPlayer {
 
         //playerClient.disconnect();
         //System.exit(0);
-    }
-
-    public static void main(String[] args) {
-
-        int noofPlayers = getSystemProperty(NOOF_PLAYERS_PROPERTY, DEFAULT_NOOF_PLAYERS);
-
-        for (int i = 0; i < noofPlayers; i++) {
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    PerformanceTournamentTestPlayer player = new PerformanceTournamentTestPlayer();
-                    player.playAGame();
-                }
-            });
-
-            t.start();
-            log.info("Started player {}", i);
-
-            try {
-                Thread.sleep(100);
-            } catch (Exception w) {
-            }
-        }
-
-        final Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (noofNewPlays.longValue() < 1) {
-                    return;
-                }
-
-                log.info("Noof plays: {}, average game bout time (ms) {}", noofNewPlays.longValue(), totalLengthOfPlays.longValue() / noofNewPlays.longValue());
-
-            }
-        }, 5000, 1000);
     }
 }

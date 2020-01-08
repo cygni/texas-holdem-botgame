@@ -197,13 +197,13 @@ public class SystemFieldPopulatorTest {
 
     public static class TestClass {
 
+        private final String aFinalString = "joy";
         private String strVal;
         private Long longVal;
         private int intVal;
         private double doubleVal = 1.23d;
         private Float floatVal;
         private Boolean booleanVal;
-        private final String aFinalString = "joy";
         private ChoiceOfEnum choice;
 
         public String getStrVal() {

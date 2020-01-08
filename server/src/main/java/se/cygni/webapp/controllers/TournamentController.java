@@ -1,4 +1,4 @@
-package se.cygni.webapp.controllers.controllers;
+package se.cygni.webapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,7 @@ import se.cygni.texasholdem.dao.model.TournamentLog;
 import se.cygni.texasholdem.game.util.TournamentUtil;
 import se.cygni.texasholdem.server.room.Tournament;
 import se.cygni.texasholdem.server.session.SessionManager;
-import se.cygni.webapp.controllers.controllers.model.StartTournament;
+import se.cygni.webapp.controllers.model.StartTournament;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,12 +18,11 @@ import java.util.Locale;
 @Controller
 public class TournamentController {
 
-    @Autowired
-    SessionManager sessionManager;
-
     public static final String TOURNAMENT_LIST = "tournamentList";
     public static final String TOURNAMENT_CURRENT = "tournamentCurrent";
     public static final String TOURNAMENT_CURRENT_START = "tournamentCurrentStart";
+    @Autowired
+    SessionManager sessionManager;
 
     @RequestMapping(value = "/tournament", method = RequestMethod.GET)
     public String home(@RequestParam(value = "id", required = false) String tournamentId, Locale locale, Model model) {

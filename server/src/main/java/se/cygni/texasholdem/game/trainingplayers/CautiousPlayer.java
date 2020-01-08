@@ -80,8 +80,7 @@ public class CautiousPlayer extends TrainingPlayer {
             // This is a big raise... only RAISE if better than THREE_OF_A_KIND
             if (raiseAmount - currentBB > currentBB * 2 && isHandBetterThan(myBestPokerHand, PokerHand.THREE_OF_A_KIND)) {
                 return raiseAction;
-            }
-            else if (raiseAmount == currentBB) {
+            } else if (raiseAmount == currentBB) {
                 return raiseAction;
             }
         }
@@ -91,8 +90,7 @@ public class CautiousPlayer extends TrainingPlayer {
             // This was an expensive CALL... only do if better than THREE_OF_A_KIND
             if (callAmount - currentBB > currentBB * 2 && isHandBetterThan(myBestPokerHand, PokerHand.ONE_PAIR)) {
                 return callAction;
-            }
-            else if (callAmount <= currentBB) {
+            } else if (callAmount <= currentBB) {
                 return callAction;
             }
         }

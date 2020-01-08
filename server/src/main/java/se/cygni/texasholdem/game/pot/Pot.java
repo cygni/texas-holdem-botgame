@@ -17,15 +17,13 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Pot {
 
     private final AtomicLong transactionCounter = new AtomicLong(0);
-    private PlayState currentPlayState = PlayState.PRE_FLOP;
-
     private final Map<PlayState, List<PotTransaction>> transactionTable = new HashMap<PlayState, List<PotTransaction>>();
     private final List<BotPlayer> allPlayers;
     private final Set<BotPlayer> foldedPlayers = new HashSet<BotPlayer>();
     private final Set<BotPlayer> allInPlayers = new HashSet<BotPlayer>();
-
     private final Map<BotPlayer, PlayState> playerFoldedInStateMap = new HashMap<BotPlayer, PlayState>();
     private final Map<BotPlayer, PlayState> playerWentAllInStateMap = new HashMap<BotPlayer, PlayState>();
+    private PlayState currentPlayState = PlayState.PRE_FLOP;
 
     public Pot(final List<BotPlayer> players) {
 
@@ -42,7 +40,6 @@ public class Pot {
      * is returned.
      *
      * @param player
-     *
      * @return
      */
     public long getMinimumBetForPlayerToCall(final BotPlayer player) {
@@ -62,7 +59,6 @@ public class Pot {
      *
      * @param player
      * @param amount
-     *
      * @throws IllegalStateException    if in a state that doesn't allow bets
      * @throws IllegalStateException    if player has folded
      * @throws IllegalArgumentException if bet is negative
@@ -112,11 +108,9 @@ public class Pot {
         long amountNeededToCall = getAmountNeededToCall(player);
         if (isAllIn) {
             derivedActionType = ActionType.ALL_IN;
-        }
-        else if (realAmount == amountNeededToCall) {
+        } else if (realAmount == amountNeededToCall) {
             derivedActionType = ActionType.CALL;
-        }
-        else if (realAmount > amountNeededToCall) {
+        } else if (realAmount > amountNeededToCall) {
             derivedActionType = ActionType.RAISE;
         }
 
@@ -146,7 +140,6 @@ public class Pot {
 
     /**
      * @param player
-     *
      * @return TRUE if player has folded any time during this play.
      */
     public boolean hasFolded(final BotPlayer player) {
@@ -161,7 +154,6 @@ public class Pot {
 
     /**
      * @param player
-     *
      * @return TRUE if player has gone all in any time during this play.
      */
     public boolean isAllIn(final BotPlayer player) {
@@ -176,7 +168,6 @@ public class Pot {
 
     /**
      * @param player
-     *
      * @return TRUE if player is still able to bet more (i.e. has money left, has not folded or gone all in)
      */
     public boolean isAbleToBet(final BotPlayer player) {
@@ -201,7 +192,6 @@ public class Pot {
      * Changes PlayState to the next.
      *
      * @return the new PlayState
-     *
      * @throws IllegalStateException if the current PlayState is not balanced.
      * @throws IllegalStateException if already at the last PlayState.
      */
@@ -272,7 +262,6 @@ public class Pot {
      * whole play.
      *
      * @param player
-     *
      * @return
      */
     public long getTotalBetAmountForPlayer(final BotPlayer player) {
@@ -295,7 +284,6 @@ public class Pot {
      *
      * @param player
      * @param playState
-     *
      * @return
      */
     public long getTotalBetAmountForPlayerInPlayState(
@@ -346,7 +334,6 @@ public class Pot {
      * has not yet happened.
      *
      * @param state
-     *
      * @return List of transactions
      */
     public List<PotTransaction> getTransactionsForState(final PlayState state) {
@@ -436,7 +423,6 @@ public class Pot {
      * in needs calculation of the side pot.
      *
      * @param player
-     *
      * @return The maximum amount this player can win
      */
     protected long getTotalMaxWinnings(final BotPlayer player) {
@@ -477,7 +463,6 @@ public class Pot {
      * Calculates the payout per player.
      *
      * @param playerRanking
-     *
      * @return a map with player and the amount won.
      */
     public Map<BotPlayer, Long> calculatePayout(
@@ -548,8 +533,7 @@ public class Pot {
             if (playersWithPayout.size() == 1) {
                 long newPlayerResult = result.get(playersWithPayout.get(0)) + totalPotLeft;
                 result.put(playersWithPayout.get(0), newPlayerResult);
-            }
-            else if (playersWithPayout.size() > 1) {
+            } else if (playersWithPayout.size() > 1) {
                 int playerIndex = 0;
                 while (totalPotLeft > 0) {
                     long newPlayerResult = result.get(playersWithPayout.get(playerIndex)) + 1;

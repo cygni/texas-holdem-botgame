@@ -32,8 +32,7 @@ public class CircularBuffer<T> {
     public void add(T item) {
         if (index.compareAndSet(size - 1, 0)) {
             buffer.set(0, item);
-        }
-        else {
+        } else {
             buffer.set(index.incrementAndGet(), item);
         }
 

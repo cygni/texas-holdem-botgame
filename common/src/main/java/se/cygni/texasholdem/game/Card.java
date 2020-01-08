@@ -11,27 +11,6 @@ import java.util.Map;
 
 public class Card {
 
-    private final Rank rank;
-    private final Suit suit;
-
-    @JsonCreator
-    public Card(@JsonProperty("rank") final Rank rank,
-                @JsonProperty("suit") final Suit suit) {
-
-        this.rank = rank;
-        this.suit = suit;
-    }
-
-    public Rank getRank() {
-
-        return rank;
-    }
-
-    public Suit getSuit() {
-
-        return suit;
-    }
-
     private static Map<Suit, Map<Rank, Card>> table =
             new EnumMap<Suit, Map<Rank, Card>>(Suit.class);
 
@@ -48,9 +27,30 @@ public class Card {
         }
     }
 
+    private final Rank rank;
+    private final Suit suit;
+
+    @JsonCreator
+    public Card(@JsonProperty("rank") final Rank rank,
+                @JsonProperty("suit") final Suit suit) {
+
+        this.rank = rank;
+        this.suit = suit;
+    }
+
     public static Card valueOf(final Rank rank, final Suit suit) {
 
         return table.get(suit).get(rank);
+    }
+
+    public Rank getRank() {
+
+        return rank;
+    }
+
+    public Suit getSuit() {
+
+        return suit;
     }
 
     @Override

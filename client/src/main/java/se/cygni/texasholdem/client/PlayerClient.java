@@ -50,12 +50,12 @@ public class PlayerClient extends SimpleChannelHandler {
     private final ClientEventDispatcher currentPlayStateEventDispatcher;
     private final SyncMessageResponseManager responseManager;
     private final Player player;
-    private Channel channel;
-    private boolean isConnected = false;
     private final String serverHost;
     private final int serverPort;
-    private Timer connectionChecker;
     private final CurrentPlayState currentPlayState;
+    private Channel channel;
+    private boolean isConnected = false;
+    private Timer connectionChecker;
 
 
     /**

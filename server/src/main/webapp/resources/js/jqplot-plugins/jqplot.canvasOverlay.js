@@ -6,13 +6,13 @@
  * Revision: 1120
  *
  * Copyright (c) 2009-2012 Chris Leonello
- * jqPlot is currently available for use in all personal or commercial projects 
- * under both the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL 
- * version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html) licenses. This means that you can 
- * choose the license that best suits your project and use it accordingly. 
+ * jqPlot is currently available for use in all personal or commercial projects
+ * under both the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL
+ * version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html) licenses. This means that you can
+ * choose the license that best suits your project and use it accordingly.
  *
- * Although not required, the author would appreciate an email letting him 
- * know of any substantial use of jqPlot.  You can reach the author at: 
+ * Although not required, the author would appreciate an email letting him
+ * know of any substantial use of jqPlot.  You can reach the author at:
  * chris at jqplot dot com or see http://www.jqplot.com/info.php .
  *
  * If you are feeling kind and generous, consider supporting the project by
@@ -26,12 +26,12 @@
  *     http://hexmen.com/js/sprintf.js
  *     The author (Ash Searle) has placed this code in the public domain:
  *     "This code is unrestricted: you are free to use it however you like."
- * 
+ *
  */
-(function($) {
+(function ($) {
     var objCounter = 0;
     // class: $.jqplot.CanvasOverlay
-    $.jqplot.CanvasOverlay = function(opts){
+    $.jqplot.CanvasOverlay = function (opts) {
         var options = opts || {};
         this.options = {
             show: $.jqplot.config.enablePlugins,
@@ -41,13 +41,13 @@
         this.objects = [];
         this.objectNames = [];
         this.canvas = null;
-        this.markerRenderer = new $.jqplot.MarkerRenderer({style:'line'});
+        this.markerRenderer = new $.jqplot.MarkerRenderer({style: 'line'});
         this.markerRenderer.init();
         this.highlightObjectIndex = null;
         if (options.objects) {
             var objs = options.objects,
                 obj;
-            for (var i=0; i<objs.length; i++) {
+            for (var i = 0; i < objs.length; i++) {
                 obj = objs[i];
                 for (var n in obj) {
                     switch (n) {
@@ -69,17 +69,17 @@
                         default:
                             break;
                     }
-                }   
+                }
             }
         }
         $.extend(true, this.options, options);
     };
-    
+
     // called with scope of a plot object
     $.jqplot.CanvasOverlay.postPlotInit = function (target, data, opts) {
         var options = opts || {};
         // add a canvasOverlay attribute to the plot
-        this.plugins.canvasOverlay = new $.jqplot.CanvasOverlay(options.canvasOverlay);     
+        this.plugins.canvasOverlay = new $.jqplot.CanvasOverlay(options.canvasOverlay);
     };
 
 
@@ -89,7 +89,7 @@
         this.gridStart = null;
         this.gridStop = null;
         this.tooltipWidthFactor = 0;
-        this.options = {           
+        this.options = {
             // prop: name
             // Optional name for the overlay object.
             // Can be later used to retrieve the object by name.
@@ -212,7 +212,7 @@
 
     HorizontalLine.prototype = new LineBase();
     HorizontalLine.prototype.constructor = HorizontalLine;
-    
+
 
     /**
      * Class: DashedHorizontalLine
@@ -232,7 +232,7 @@
             // Array of line, space settings in pixels.
             // Default is 8 pixel of line, 8 pixel of space.
             // Note, limit to a 2 element array b/c of bug with higher order arrays.
-            dashPattern: [8,8]
+            dashPattern: [8, 8]
         };
         $.extend(true, this.options, opts, options);
 
@@ -243,7 +243,7 @@
 
     DashedHorizontalLine.prototype = new LineBase();
     DashedHorizontalLine.prototype.constructor = DashedHorizontalLine;
-    
+
 
     /**
      * Class: VerticalLine
@@ -269,7 +269,7 @@
 
     VerticalLine.prototype = new LineBase();
     VerticalLine.prototype.constructor = VerticalLine;
-    
+
 
     /**
      * Class: DashedVerticalLine
@@ -291,7 +291,7 @@
             // Array of line, space settings in pixels.
             // Default is 8 pixel of line, 8 pixel of space.
             // Note, limit to a 2 element array b/c of bug with higher order arrays.
-            dashPattern: [8,8]
+            dashPattern: [8, 8]
         };
         $.extend(true, this.options, opts, options);
 
@@ -302,43 +302,43 @@
 
     DashedVerticalLine.prototype = new LineBase();
     DashedVerticalLine.prototype.constructor = DashedVerticalLine;
-    
-    $.jqplot.CanvasOverlay.prototype.addLine = function(opts) {
+
+    $.jqplot.CanvasOverlay.prototype.addLine = function (opts) {
         var line = new Line(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
-    $.jqplot.CanvasOverlay.prototype.addHorizontalLine = function(opts) {
+
+    $.jqplot.CanvasOverlay.prototype.addHorizontalLine = function (opts) {
         var line = new HorizontalLine(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
-    $.jqplot.CanvasOverlay.prototype.addDashedHorizontalLine = function(opts) {
+
+    $.jqplot.CanvasOverlay.prototype.addDashedHorizontalLine = function (opts) {
         var line = new DashedHorizontalLine(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
-    $.jqplot.CanvasOverlay.prototype.addVerticalLine = function(opts) {
+
+    $.jqplot.CanvasOverlay.prototype.addVerticalLine = function (opts) {
         var line = new VerticalLine(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
-    $.jqplot.CanvasOverlay.prototype.addDashedVerticalLine = function(opts) {
+
+    $.jqplot.CanvasOverlay.prototype.addDashedVerticalLine = function (opts) {
         var line = new DashedVerticalLine(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
-    $.jqplot.CanvasOverlay.prototype.removeObject = function(idx) {
+
+    $.jqplot.CanvasOverlay.prototype.removeObject = function (idx) {
         // check if integer, remove by index
         if ($.type(idx) == 'number') {
             this.objects.splice(idx, 1);
@@ -353,8 +353,8 @@
             }
         }
     };
-    
-    $.jqplot.CanvasOverlay.prototype.getObject = function(idx) {
+
+    $.jqplot.CanvasOverlay.prototype.getObject = function (idx) {
         // check if integer, remove by index
         if ($.type(idx) == 'number') {
             return this.objects[idx];
@@ -367,23 +367,23 @@
             }
         }
     };
-    
+
     // Set get as alias for getObject.
     $.jqplot.CanvasOverlay.prototype.get = $.jqplot.CanvasOverlay.prototype.getObject;
-    
-    $.jqplot.CanvasOverlay.prototype.clear = function(plot) {
-        this.canvas._ctx.clearRect(0,0,this.canvas.getWidth(), this.canvas.getHeight());
+
+    $.jqplot.CanvasOverlay.prototype.clear = function (plot) {
+        this.canvas._ctx.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     };
-    
-    $.jqplot.CanvasOverlay.prototype.draw = function(plot) {
-        var obj, 
+
+    $.jqplot.CanvasOverlay.prototype.draw = function (plot) {
+        var obj,
             objs = this.objects,
             mr = this.markerRenderer,
             start,
             stop;
         if (this.options.show) {
-            this.canvas._ctx.clearRect(0,0,this.canvas.getWidth(), this.canvas.getHeight());
-            for (var k=0; k<objs.length; k++) {
+            this.canvas._ctx.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+            for (var k = 0; k < objs.length; k++) {
                 obj = objs[k];
                 var opts = $.extend(true, {}, obj.options);
                 if (obj.options.show) {
@@ -404,7 +404,7 @@
                             mr.draw(start, stop, this.canvas._ctx, opts);
                             break;
                         case 'horizontalLine':
-                            
+
                             // style and shadow properties should be set before
                             // every draw of marker renderer.
                             if (obj.options.y != null) {
@@ -418,23 +418,19 @@
                                     xmaxoff = obj.options.xmaxOffset || obj.options.xOffset;
                                 if (obj.options.xmin != null) {
                                     xstart = xaxis.series_u2p(obj.options.xmin);
-                                }
-                                else if (xminoff != null) {
+                                } else if (xminoff != null) {
                                     if ($.type(xminoff) == "number") {
                                         xstart = xaxis.series_u2p(xaxis.min + xminoff);
-                                    }
-                                    else if ($.type(xminoff) == "string") {
+                                    } else if ($.type(xminoff) == "string") {
                                         xstart = xaxis.series_u2p(xaxis.min) + parseFloat(xminoff);
                                     }
                                 }
                                 if (obj.options.xmax != null) {
                                     xstop = xaxis.series_u2p(obj.options.xmax);
-                                }
-                                else if (xmaxoff != null) {
+                                } else if (xmaxoff != null) {
                                     if ($.type(xmaxoff) == "number") {
                                         xstop = xaxis.series_u2p(xaxis.max - xmaxoff);
-                                    }
-                                    else if ($.type(xmaxoff) == "string") {
+                                    } else if ($.type(xmaxoff) == "string") {
                                         xstop = xaxis.series_u2p(xaxis.max) - parseFloat(xmaxoff);
                                     }
                                 }
@@ -447,10 +443,10 @@
                             break;
 
                         case 'dashedHorizontalLine':
-                            
+
                             var dashPat = obj.options.dashPattern;
                             var dashPatLen = 0;
-                            for (var i=0; i<dashPat.length; i++) {
+                            for (var i = 0; i < dashPat.length; i++) {
                                 dashPatLen += dashPat[i];
                             }
 
@@ -467,38 +463,34 @@
                                     xmaxoff = obj.options.xmaxOffset || obj.options.xOffset;
                                 if (obj.options.xmin != null) {
                                     xstart = xaxis.series_u2p(obj.options.xmin);
-                                }
-                                else if (xminoff != null) {
+                                } else if (xminoff != null) {
                                     if ($.type(xminoff) == "number") {
                                         xstart = xaxis.series_u2p(xaxis.min + xminoff);
-                                    }
-                                    else if ($.type(xminoff) == "string") {
+                                    } else if ($.type(xminoff) == "string") {
                                         xstart = xaxis.series_u2p(xaxis.min) + parseFloat(xminoff);
                                     }
                                 }
                                 if (obj.options.xmax != null) {
                                     xstop = xaxis.series_u2p(obj.options.xmax);
-                                }
-                                else if (xmaxoff != null) {
+                                } else if (xmaxoff != null) {
                                     if ($.type(xmaxoff) == "number") {
                                         xstop = xaxis.series_u2p(xaxis.max - xmaxoff);
-                                    }
-                                    else if ($.type(xmaxoff) == "string") {
+                                    } else if ($.type(xmaxoff) == "string") {
                                         xstop = xaxis.series_u2p(xaxis.max) - parseFloat(xmaxoff);
                                     }
                                 }
                                 if (xstop != null && xstart != null) {
                                     obj.gridStart = [xstart, y];
                                     obj.gridStop = [xstop, y];
-                                    var numDash = Math.ceil((xstop - xstart)/dashPatLen);
-                                    var b=xstart, e;
-                                    for (var i=0; i<numDash; i++) {
-                                        for (var j=0; j<dashPat.length; j+=2) {
-                                            e = b+dashPat[j];
+                                    var numDash = Math.ceil((xstop - xstart) / dashPatLen);
+                                    var b = xstart, e;
+                                    for (var i = 0; i < numDash; i++) {
+                                        for (var j = 0; j < dashPat.length; j += 2) {
+                                            e = b + dashPat[j];
                                             mr.draw([b, y], [e, y], this.canvas._ctx, opts);
                                             b += dashPat[j];
-                                            if (j < dashPat.length-1) {
-                                                b += dashPat[j+1];
+                                            if (j < dashPat.length - 1) {
+                                                b += dashPat[j + 1];
                                             }
                                         }
                                     }
@@ -507,7 +499,7 @@
                             break;
 
                         case 'verticalLine':
-                            
+
                             // style and shadow properties should be set before
                             // every draw of marker renderer.
                             if (obj.options.x != null) {
@@ -521,23 +513,19 @@
                                     ymaxoff = obj.options.ymaxOffset || obj.options.yOffset;
                                 if (obj.options.ymin != null) {
                                     ystart = yaxis.series_u2p(obj.options.ymin);
-                                }
-                                else if (yminoff != null) {
+                                } else if (yminoff != null) {
                                     if ($.type(yminoff) == "number") {
                                         ystart = yaxis.series_u2p(yaxis.min - yminoff);
-                                    }
-                                    else if ($.type(yminoff) == "string") {
+                                    } else if ($.type(yminoff) == "string") {
                                         ystart = yaxis.series_u2p(yaxis.min) - parseFloat(yminoff);
                                     }
                                 }
                                 if (obj.options.ymax != null) {
                                     ystop = yaxis.series_u2p(obj.options.ymax);
-                                }
-                                else if (ymaxoff != null) {
+                                } else if (ymaxoff != null) {
                                     if ($.type(ymaxoff) == "number") {
                                         ystop = yaxis.series_u2p(yaxis.max + ymaxoff);
-                                    }
-                                    else if ($.type(ymaxoff) == "string") {
+                                    } else if ($.type(ymaxoff) == "string") {
                                         ystop = yaxis.series_u2p(yaxis.max) + parseFloat(ymaxoff);
                                     }
                                 }
@@ -550,10 +538,10 @@
                             break;
 
                         case 'dashedVerticalLine':
-                            
+
                             var dashPat = obj.options.dashPattern;
                             var dashPatLen = 0;
-                            for (var i=0; i<dashPat.length; i++) {
+                            for (var i = 0; i < dashPat.length; i++) {
                                 dashPatLen += dashPat[i];
                             }
 
@@ -570,23 +558,19 @@
                                     ymaxoff = obj.options.ymaxOffset || obj.options.yOffset;
                                 if (obj.options.ymin != null) {
                                     ystart = yaxis.series_u2p(obj.options.ymin);
-                                }
-                                else if (yminoff != null) {
+                                } else if (yminoff != null) {
                                     if ($.type(yminoff) == "number") {
                                         ystart = yaxis.series_u2p(yaxis.min - yminoff);
-                                    }
-                                    else if ($.type(yminoff) == "string") {
+                                    } else if ($.type(yminoff) == "string") {
                                         ystart = yaxis.series_u2p(yaxis.min) - parseFloat(yminoff);
                                     }
                                 }
                                 if (obj.options.ymax != null) {
                                     ystop = yaxis.series_u2p(obj.options.ymax);
-                                }
-                                else if (ymaxoff != null) {
+                                } else if (ymaxoff != null) {
                                     if ($.type(ymaxoff) == "number") {
                                         ystop = yaxis.series_u2p(yaxis.max + ymaxoff);
-                                    }
-                                    else if ($.type(ymaxoff) == "string") {
+                                    } else if ($.type(ymaxoff) == "string") {
                                         ystop = yaxis.series_u2p(yaxis.max) + parseFloat(ymaxoff);
                                     }
                                 }
@@ -595,11 +579,11 @@
                                 if (ystop != null && ystart != null) {
                                     obj.gridStart = [x, ystart];
                                     obj.gridStop = [x, ystop];
-                                    var numDash = Math.ceil((ystart - ystop)/dashPatLen);
-                                    var firstDashAdjust = ((numDash * dashPatLen) - (ystart - ystop))/2.0;
-                                    var b=ystart, e, bs, es;
-                                    for (var i=0; i<numDash; i++) {
-                                        for (var j=0; j<dashPat.length; j+=2) {
+                                    var numDash = Math.ceil((ystart - ystop) / dashPatLen);
+                                    var firstDashAdjust = ((numDash * dashPatLen) - (ystart - ystop)) / 2.0;
+                                    var b = ystart, e, bs, es;
+                                    for (var i = 0; i < numDash; i++) {
+                                        for (var j = 0; j < dashPat.length; j += 2) {
                                             e = b - dashPat[j];
                                             if (e < ystop) {
                                                 e = ystop;
@@ -613,8 +597,8 @@
                                             // }
                                             mr.draw([x, b], [x, e], this.canvas._ctx, opts);
                                             b -= dashPat[j];
-                                            if (j < dashPat.length-1) {
-                                                b -= dashPat[j+1];
+                                            if (j < dashPat.length - 1) {
+                                                b -= dashPat[j + 1];
                                             }
                                         }
                                     }
@@ -629,11 +613,11 @@
             }
         }
     };
-    
+
     // called within context of plot
     // create a canvas which we can draw on.
     // insert it before the eventCanvas, so eventCanvas will still capture events.
-    $.jqplot.CanvasOverlay.postPlotDraw = function() {
+    $.jqplot.CanvasOverlay.postPlotDraw = function () {
         var co = this.plugins.canvasOverlay;
         // Memory Leaks patch    
         if (co && co.highlightCanvas) {
@@ -641,7 +625,7 @@
             co.highlightCanvas = null;
         }
         co.canvas = new $.jqplot.GenericCanvas();
-        
+
         this.eventCanvas._elem.before(co.canvas.createElement(this._gridPadding, 'jqplot-overlayCanvas-canvas', this._plotDimensions, this));
         co.canvas.setContext();
         if (!co.deferDraw) {
@@ -652,10 +636,12 @@
         co._tooltipElem = $(elem);
         elem = null;
         co._tooltipElem.addClass('jqplot-canvasOverlay-tooltip');
-        co._tooltipElem.css({position:'absolute', display:'none'});
-        
+        co._tooltipElem.css({position: 'absolute', display: 'none'});
+
         this.eventCanvas._elem.before(co._tooltipElem);
-        this.eventCanvas._elem.bind('mouseleave', { elem: co._tooltipElem }, function (ev) { ev.data.elem.hide(); });
+        this.eventCanvas._elem.bind('mouseleave', {elem: co._tooltipElem}, function (ev) {
+            ev.data.elem.hide();
+        });
 
         var co = null;
     };
@@ -668,14 +654,14 @@
         var opts = obj.options, x, y;
 
         elem.html($.jqplot.sprintf(opts.tooltipFormatString, datapos[0], datapos[1]));
-        
+
         switch (opts.tooltipLocation) {
             case 'nw':
                 x = gridpos[0] + plot._gridPadding.left - elem.outerWidth(true) - opts.tooltipOffset;
                 y = gridpos[1] + plot._gridPadding.top - opts.tooltipOffset - elem.outerHeight(true);
                 break;
             case 'n':
-                x = gridpos[0] + plot._gridPadding.left - elem.outerWidth(true)/2;
+                x = gridpos[0] + plot._gridPadding.left - elem.outerWidth(true) / 2;
                 y = gridpos[1] + plot._gridPadding.top - opts.tooltipOffset - elem.outerHeight(true);
                 break;
             case 'ne':
@@ -684,14 +670,14 @@
                 break;
             case 'e':
                 x = gridpos[0] + plot._gridPadding.left + opts.tooltipOffset;
-                y = gridpos[1] + plot._gridPadding.top - elem.outerHeight(true)/2;
+                y = gridpos[1] + plot._gridPadding.top - elem.outerHeight(true) / 2;
                 break;
             case 'se':
                 x = gridpos[0] + plot._gridPadding.left + opts.tooltipOffset;
                 y = gridpos[1] + plot._gridPadding.top + opts.tooltipOffset;
                 break;
             case 's':
-                x = gridpos[0] + plot._gridPadding.left - elem.outerWidth(true)/2;
+                x = gridpos[0] + plot._gridPadding.left - elem.outerWidth(true) / 2;
                 y = gridpos[1] + plot._gridPadding.top + opts.tooltipOffset;
                 break;
             case 'sw':
@@ -700,7 +686,7 @@
                 break;
             case 'w':
                 x = gridpos[0] + plot._gridPadding.left - elem.outerWidth(true) - opts.tooltipOffset;
-                y = gridpos[1] + plot._gridPadding.top - elem.outerHeight(true)/2;
+                y = gridpos[1] + plot._gridPadding.top - elem.outerHeight(true) / 2;
                 break;
             default: // same as 'nw'
                 x = gridpos[0] + plot._gridPadding.left - elem.outerWidth(true) - opts.tooltipOffset;
@@ -712,9 +698,8 @@
         elem.css('top', y);
         if (opts.fadeTooltip) {
             // Fix for stacked up animations.  Thnanks Trevor!
-            elem.stop(true,true).fadeIn(opts.tooltipFadeSpeed);
-        }
-        else {
+            elem.stop(true, true).fadeIn(opts.tooltipFadeSpeed);
+        } else {
             elem.show();
         }
         elem = null;
@@ -730,11 +715,11 @@
         var qx = Math.round(lstart[0]);
         var qy = Math.round(lstart[1]);
 
-        var l = Math.sqrt(Math.pow(px-qx, 2) + Math.pow(py-qy, 2));
+        var l = Math.sqrt(Math.pow(px - qx, 2) + Math.pow(py - qy, 2));
 
         // scale error term by length of line.
-        var eps = width*l;
-        var res = Math.abs((qx-px) * (ry-py) - (qy-py) * (rx-px));
+        var eps = width * l;
+        var res = Math.abs((qx - px) * (ry - py) - (qy - py) * (rx - px));
         var ret = (res < eps) ? true : false;
         return ret;
     }
@@ -744,9 +729,9 @@
         var co = plot.plugins.canvasOverlay;
         var objs = co.objects;
         var l = objs.length;
-        var obj, haveHighlight=false;
+        var obj, haveHighlight = false;
         var elem;
-        for (var i=0; i<l; i++) {
+        for (var i = 0; i < l; i++) {
             obj = objs[i];
             if (obj.options.showTooltip) {
                 var n = isNearLine([gridpos.x, gridpos.y], obj.gridStart, obj.gridStop, obj.tooltipWidthFactor);
@@ -777,7 +762,7 @@
                             break;
                         default:
                             break;
-                    } 
+                    }
                     co.highlightObjectIndex = i;
                     haveHighlight = true;
                     break;
@@ -789,8 +774,7 @@
                     elem = co._tooltipElem;
                     if (obj.fadeTooltip) {
                         elem.fadeOut(obj.tooltipFadeSpeed);
-                    }
-                    else {
+                    } else {
                         elem.hide();
                     }
 
@@ -850,14 +834,13 @@
             obj = co.getObject(co.highlightObjectIndex);
             if (obj.fadeTooltip) {
                 elem.fadeOut(obj.tooltipFadeSpeed);
-            }
-            else {
+            } else {
                 elem.hide();
             }
             co.highlightObjectIndex = null;
         }
     }
-    
+
     $.jqplot.postInitHooks.push($.jqplot.CanvasOverlay.postPlotInit);
     $.jqplot.postDrawHooks.push($.jqplot.CanvasOverlay.postPlotDraw);
     $.jqplot.eventListenerHooks.push(['jqplotMouseMove', handleMove]);

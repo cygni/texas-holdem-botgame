@@ -79,8 +79,7 @@ public class StatsActions {
     private void increment(Map<String, Integer> map, String key) {
         if (!map.containsKey(key)) {
             map.put(key, Integer.valueOf(1));
-        }
-        else {
+        } else {
             map.put(key, Integer.valueOf(map.get(key) + 1));
         }
     }
@@ -88,8 +87,7 @@ public class StatsActions {
     private void increment(Map<String, Integer> map, String key, int incrementWith) {
         if (!map.containsKey(key)) {
             map.put(key, Integer.valueOf(incrementWith));
-        }
-        else {
+        } else {
             map.put(key, Integer.valueOf(map.get(key) + incrementWith));
         }
     }

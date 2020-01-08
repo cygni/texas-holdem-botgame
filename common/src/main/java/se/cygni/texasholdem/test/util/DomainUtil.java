@@ -9,8 +9,8 @@ import java.util.List;
 
 public class DomainUtil {
 
-    private static Deck deck = Deck.getShuffledDeck();
     private static final RandomDataGenerator random = new RandomDataGenerator();
+    private static Deck deck = Deck.getShuffledDeck();
 
     private static void reshuffleDeck() {
 

@@ -11,6 +11,14 @@ public enum Suit {
     HEARTS("h", "Hearts"),
     SPADES("s", "Spades");
 
+    private static final Map<String, Suit> lookup = new HashMap<String, Suit>();
+
+    static {
+        for (final Suit s : EnumSet.allOf(Suit.class)) {
+            lookup.put(s.getShortName(), s);
+        }
+    }
+
     private final String shortName;
     private final String longName;
 
@@ -18,6 +26,11 @@ public enum Suit {
 
         this.shortName = shortName;
         this.longName = longName;
+    }
+
+    public static Suit get(final String name) {
+
+        return lookup.get(name.toLowerCase());
     }
 
     public String getShortName() {
@@ -34,18 +47,5 @@ public enum Suit {
     public String toString() {
 
         return longName;
-    }
-
-    private static final Map<String, Suit> lookup = new HashMap<String, Suit>();
-
-    static {
-        for (final Suit s : EnumSet.allOf(Suit.class)) {
-            lookup.put(s.getShortName(), s);
-        }
-    }
-
-    public static Suit get(final String name) {
-
-        return lookup.get(name.toLowerCase());
     }
 }

@@ -17,29 +17,23 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class PerformanceTestPlayer extends BasicPlayer {
 
-    private static Logger log = LoggerFactory
-            .getLogger(PerformanceTestPlayer.class);
-
     private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 4711;
     private static final String DEFAULT_NAME = "perftest";
     private static final int DEFAULT_NOOF_PLAYERS = 1;
-
     private static final AtomicInteger counter = new AtomicInteger(0);
-
     private static final String HOST_PROPERTY = "host";
     private static final String PORT_PROPERTY = "port";
     private static final String NAME_PROPERTY = "name";
     private static final String NOOF_PLAYERS_PROPERTY = "noof";
-
-
-    private PlayerClient playerClient;
-    private final String name;
-
+    private static Logger log = LoggerFactory
+            .getLogger(PerformanceTestPlayer.class);
     private static AtomicLong noofNewPlays = new AtomicLong(0);
     private static AtomicLong totalLengthOfPlays = new AtomicLong(0);
-
+    private final String name;
+    private PlayerClient playerClient;
     private long lastNewGame;
+    private int lastNoofPlayers = 0;
 
     public PerformanceTestPlayer() {
         name = getSystemProperty(NAME_PROPERTY, DEFAULT_NAME) + "_" + counter.getAndIncrement();
@@ -68,96 +62,6 @@ public class PerformanceTestPlayer extends BasicPlayer {
         }
 
         return defaultValue;
-    }
-
-    public void playAGame() {
-        try {
-            playerClient.connect();
-            playerClient.registerForPlay(Room.TRAINING);
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public String getName() {
-
-        return name;
-    }
-
-    private int lastNoofPlayers = 0;
-
-    @Override
-    public void onPlayIsStarted(PlayIsStartedEvent event) {
-        if (lastNewGame > 0) {
-
-            totalLengthOfPlays.addAndGet(System.currentTimeMillis() - lastNewGame);
-            lastNewGame = System.currentTimeMillis();
-            noofNewPlays.incrementAndGet();
-        }
-        else {
-            lastNewGame = System.currentTimeMillis();
-        }
-
-//        if (playerClient.getCurrentPlayState().getNumberOfPlayers() != lastNoofPlayers) {
-//            log.info("{} reports, noof players: {}", this.getName(), playerClient.getCurrentPlayState().getNumberOfPlayers());
-//            log.info(StringUtils.join(playerClient.getCurrentPlayState().getPlayers(), ","));
-//            lastNoofPlayers = playerClient.getCurrentPlayState().getNumberOfPlayers();
-//        }
-
-    }
-
-
-
-    @Override
-    public Action actionRequired(final ActionRequest request) {
-
-        Action callAction = null;
-        Action checkAction = null;
-        Action foldAction = null;
-
-
-        for (final Action action : request.getPossibleActions()) {
-            switch (action.getActionType()) {
-                case CALL:
-                    callAction = action;
-                    break;
-                case CHECK:
-                    checkAction = action;
-                    break;
-                case FOLD:
-                    foldAction = action;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        Action action = null;
-        if (callAction != null) {
-            action = callAction;
-        }
-        else if (checkAction != null) {
-            action = checkAction;
-        }
-        else {
-            action = foldAction;
-        }
-
-        return action;
-    }
-
-    @Override
-    public void connectionToGameServerLost() {
-
-        playAGame();
-    }
-
-    @Override
-    public void onTableIsDone(TableIsDoneEvent event) {
-
     }
 
     public static void main(String[] args) {
@@ -193,5 +97,88 @@ public class PerformanceTestPlayer extends BasicPlayer {
 
             }
         }, 5000, 1000);
+    }
+
+    public void playAGame() {
+        try {
+            playerClient.connect();
+            playerClient.registerForPlay(Room.TRAINING);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getName() {
+
+        return name;
+    }
+
+    @Override
+    public void onPlayIsStarted(PlayIsStartedEvent event) {
+        if (lastNewGame > 0) {
+
+            totalLengthOfPlays.addAndGet(System.currentTimeMillis() - lastNewGame);
+            lastNewGame = System.currentTimeMillis();
+            noofNewPlays.incrementAndGet();
+        } else {
+            lastNewGame = System.currentTimeMillis();
+        }
+
+//        if (playerClient.getCurrentPlayState().getNumberOfPlayers() != lastNoofPlayers) {
+//            log.info("{} reports, noof players: {}", this.getName(), playerClient.getCurrentPlayState().getNumberOfPlayers());
+//            log.info(StringUtils.join(playerClient.getCurrentPlayState().getPlayers(), ","));
+//            lastNoofPlayers = playerClient.getCurrentPlayState().getNumberOfPlayers();
+//        }
+
+    }
+
+    @Override
+    public Action actionRequired(final ActionRequest request) {
+
+        Action callAction = null;
+        Action checkAction = null;
+        Action foldAction = null;
+
+
+        for (final Action action : request.getPossibleActions()) {
+            switch (action.getActionType()) {
+                case CALL:
+                    callAction = action;
+                    break;
+                case CHECK:
+                    checkAction = action;
+                    break;
+                case FOLD:
+                    foldAction = action;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Action action = null;
+        if (callAction != null) {
+            action = callAction;
+        } else if (checkAction != null) {
+            action = checkAction;
+        } else {
+            action = foldAction;
+        }
+
+        return action;
+    }
+
+    @Override
+    public void connectionToGameServerLost() {
+
+        playAGame();
+    }
+
+    @Override
+    public void onTableIsDone(TableIsDoneEvent event) {
+
     }
 }

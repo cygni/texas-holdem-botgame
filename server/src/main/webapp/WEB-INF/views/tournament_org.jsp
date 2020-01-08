@@ -7,9 +7,9 @@
         clearTimeout(reloadTimer);
 
         $.ajax({
-            type:"GET",
-            url:"/tournament/subview?id=" + id,
-            success:function (response) {
+            type: "GET",
+            url: "/tournament/subview?id=" + id,
+            success: function (response) {
                 $("#tournament_status").html(response);
             }
         });

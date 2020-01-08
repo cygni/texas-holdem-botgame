@@ -59,8 +59,7 @@ public class ResponseLock {
             if (other.requestId != null) {
                 return false;
             }
-        }
-        else if (!requestId.equals(other.requestId)) {
+        } else if (!requestId.equals(other.requestId)) {
             return false;
         }
 

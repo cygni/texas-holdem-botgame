@@ -43,12 +43,12 @@ OS name: "linux", version: "3.5.2-linode45", arch: "i386", family: "unix"</pre>
                             expression="@applicationProperties.getProperty('application.version')"/></a>
                     Extract the zip.
                 </p>
- <pre class="prettyprint">
+                <pre class="prettyprint">
 > unzip texas-holdem-java-client-<spring:eval expression="@applicationProperties.getProperty('application.version')"/>.zip</pre>
                 <p>
                     A simple test run with maven:
                 </p>
-                    <pre class="prettyprint">
+                <pre class="prettyprint">
 > cd texas-holdem-java-client-<spring:eval expression="@applicationProperties.getProperty('application.version')"/>
 > mvn compile exec:java -Dexec.mainClass="se.cygni.texasholdem.player.FullyImplementedBot"
 
@@ -117,12 +117,12 @@ v0.8.8</pre>
                 </p>
 
                 <p>Extract the zip</p>
-                    <pre class="prettyprint">
+                <pre class="prettyprint">
 > unzip texas-holdem-nodejs-client-<spring:eval expression="@applicationProperties.getProperty('application.version')"/>.zip</pre>
 
                 <p>Do a test run:
 
-                    <pre class="prettyprint">
+                <pre class="prettyprint">
 > node play.js
         throw new Error('Did you forget to specify your name? A good idea is t
               ^

@@ -17,7 +17,7 @@ public final class ValidPlayerNameVerifier {
 
         throw new InvalidNameException(name + " is not a legal user name. a-ö, A-Ö, 1-9 and -_ are allowed. " +
                 "First illegal character at pos " + indexOfFirstInvalidChar + ": '" +
-                name.substring(indexOfFirstInvalidChar, indexOfFirstInvalidChar+1) + "'");
+                name.substring(indexOfFirstInvalidChar, indexOfFirstInvalidChar + 1) + "'");
 
     }
 }

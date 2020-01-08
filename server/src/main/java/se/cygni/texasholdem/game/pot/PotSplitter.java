@@ -116,7 +116,6 @@ public class PotSplitter {
      * registered in this split 0 (zero) is returned.
      *
      * @param player
-     *
      * @return The splitted win amount for player
      */
     public long getWinAmountFor(final BotPlayer player) {

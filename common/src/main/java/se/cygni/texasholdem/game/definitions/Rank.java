@@ -20,6 +20,14 @@ public enum Rank {
     KING(13, "K"),
     ACE(14, "A");
 
+    private static final Map<String, Rank> lookup = new HashMap<String, Rank>();
+
+    static {
+        for (final Rank r : EnumSet.allOf(Rank.class)) {
+            lookup.put(r.getName(), r);
+        }
+    }
+
     private final int orderValue;
     private final String name;
 
@@ -27,6 +35,11 @@ public enum Rank {
 
         this.orderValue = orderValue;
         this.name = name;
+    }
+
+    public static Rank get(final String name) {
+
+        return lookup.get(name.toUpperCase());
     }
 
     public int getOrderValue() {
@@ -43,18 +56,5 @@ public enum Rank {
     public String toString() {
 
         return name;
-    }
-
-    private static final Map<String, Rank> lookup = new HashMap<String, Rank>();
-
-    static {
-        for (final Rank r : EnumSet.allOf(Rank.class)) {
-            lookup.put(r.getName(), r);
-        }
-    }
-
-    public static Rank get(final String name) {
-
-        return lookup.get(name.toUpperCase());
     }
 }

@@ -13,7 +13,6 @@ import java.util.List;
 public class WeightedPlayer extends TrainingPlayer {
 
     private static final List<ActionTypeWeigth> actionWeight = new ArrayList<WeightedPlayer.ActionTypeWeigth>();
-    private RandomAdaptor random = new RandomAdaptor(new JDKRandomGenerator());
 
     static {
         actionWeight.add(new ActionTypeWeigth(800, ActionType.CHECK));
@@ -22,6 +21,8 @@ public class WeightedPlayer extends TrainingPlayer {
         actionWeight.add(new ActionTypeWeigth(50, ActionType.FOLD));
         actionWeight.add(new ActionTypeWeigth(10, ActionType.ALL_IN));
     }
+
+    private RandomAdaptor random = new RandomAdaptor(new JDKRandomGenerator());
 
     public WeightedPlayer(String name, String sessionId, long chipAmount) {
         super(name, sessionId, chipAmount);
@@ -49,8 +50,7 @@ public class WeightedPlayer extends TrainingPlayer {
             if (randomNumber < w.getWeight()) {
                 choosenActionType = w.getType();
                 break;
-            }
-            else {
+            } else {
                 randomNumber -= w.getWeight();
             }
         }

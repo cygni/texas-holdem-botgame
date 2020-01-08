@@ -21,13 +21,13 @@ import java.util.Formatter;
  * it must implement the interface Player
  *
  * @see Player
- *      <p/>
- *      Javadocs for common utilities and classes used may be
- *      found here:
- *      http://poker.cygni.se/mavensite/texas-holdem-common/apidocs/index.html
- *      <p/>
- *      You can inspect the games you bot has played here:
- *      http://poker.cygni.se/showgame
+ * <p/>
+ * Javadocs for common utilities and classes used may be
+ * found here:
+ * http://poker.cygni.se/mavensite/texas-holdem-common/apidocs/index.html
+ * <p/>
+ * You can inspect the games you bot has played here:
+ * http://poker.cygni.se/showgame
  */
 public class FullyImplementedBot implements Player {
 
@@ -52,11 +52,6 @@ public class FullyImplementedBot implements Player {
         playerClient = new PlayerClient(this, serverHost, serverPort);
     }
 
-    public void playATrainingGame() throws Exception {
-        playerClient.connect();
-        playerClient.registerForPlay(Room.TRAINING);
-    }
-
     /**
      * The main method to start your bot.
      *
@@ -72,6 +67,11 @@ public class FullyImplementedBot implements Player {
             e.printStackTrace();
             System.exit(1);
         }
+    }
+
+    public void playATrainingGame() throws Exception {
+        playerClient.connect();
+        playerClient.registerForPlay(Room.TRAINING);
     }
 
     /**
@@ -92,20 +92,18 @@ public class FullyImplementedBot implements Player {
      * your bot can perform.
      *
      * @param request The list of Actions that the bot may perform.
-     *
      * @return The action the bot wants to perform.
-     *
      * @see ActionRequest
-     *      <p/>
-     *      Given the current situation you need to choose the best
-     *      action. It is not allowed to change any values in the
-     *      ActionRequest. The amount you may RAISE or CALL is already
-     *      predermined by the poker server.
-     *      <p/>
-     *      If an invalid Action is returned the server will ask two
-     *      more times. Failure to comply (i.e. returning an incorrect
-     *      or non valid Action) will result in a forced FOLD for the
-     *      current Game Round.
+     * <p/>
+     * Given the current situation you need to choose the best
+     * action. It is not allowed to change any values in the
+     * ActionRequest. The amount you may RAISE or CALL is already
+     * predermined by the poker server.
+     * <p/>
+     * If an invalid Action is returned the server will ask two
+     * more times. Failure to comply (i.e. returning an incorrect
+     * or non valid Action) will result in a forced FOLD for the
+     * current Game Round.
      * @see Action
      */
     @Override
@@ -125,7 +123,6 @@ public class FullyImplementedBot implements Player {
      * to win.
      *
      * @param request
-     *
      * @return
      */
     private Action getBestAction(ActionRequest request) {
@@ -209,7 +206,6 @@ public class FullyImplementedBot implements Player {
      *
      * @param myPokerHand
      * @param otherPokerHand
-     *
      * @return TRUE if myPokerHand is valued higher than otherPokerHand
      */
     private boolean isHandBetterThan(PokerHand myPokerHand, PokerHand otherPokerHand) {
@@ -229,8 +225,8 @@ public class FullyImplementedBot implements Player {
      * needed to keep track of the total picture around the table.
      *
      * @see CurrentPlayState
-     *      <p/>
-     *      ***********************************************************************
+     * <p/>
+     * ***********************************************************************
      */
 
     @Override

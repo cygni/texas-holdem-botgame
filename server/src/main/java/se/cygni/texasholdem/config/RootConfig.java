@@ -49,7 +49,7 @@ public class RootConfig {
                         new ConcurrentMapCache("gamelog"),
                         new ConcurrentMapCache("statistics-actions"),
                         new ConcurrentMapCache("statistics-chips")
-                             ));
+                ));
         return cacheManager;
     }
 }

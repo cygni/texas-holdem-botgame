@@ -9,9 +9,9 @@
         clearTimeout(reloadTimer);
 
         $.ajax({
-            type:"GET",
-            url:"/tournament/details/" + id,
-            success:function (response) {
+            type: "GET",
+            url: "/tournament/details/" + id,
+            success: function (response) {
                 var result = "Nothing to show";
                 var shouldReload = true;
 
@@ -42,8 +42,8 @@
     function startTournament(id) {
         console.log('Starting tournament with id: ' + id);
         $.ajax({
-            type:"GET",
-            url:"/tournament/start/" + id
+            type: "GET",
+            url: "/tournament/start/" + id
         });
     }
 

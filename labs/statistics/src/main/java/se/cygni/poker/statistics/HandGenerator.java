@@ -112,8 +112,7 @@ public class HandGenerator {
                 currentIteration++;
                 positionArray[k - 1] = positionArray[k - 1] - 1;
                 continue;
-            }
-            else {
+            } else {
                 positionArray = updateIndices(positionArray);
                 currentVal = getValueOfPositions(positionArray);
                 currentIteration++;

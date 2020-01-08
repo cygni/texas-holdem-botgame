@@ -1,4 +1,4 @@
-package se.cygni.webapp.controllers.controllers;
+package se.cygni.webapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import se.cygni.texasholdem.dao.model.stats.StatsActions;
 import se.cygni.texasholdem.dao.model.stats.StatsChips;
 import se.cygni.texasholdem.server.session.SessionManager;
 import se.cygni.texasholdem.server.statistics.StatisticsCollector;
-import se.cygni.webapp.controllers.controllers.model.GameNavigation;
+import se.cygni.webapp.controllers.model.GameNavigation;
 
 import java.util.Collections;
 import java.util.List;

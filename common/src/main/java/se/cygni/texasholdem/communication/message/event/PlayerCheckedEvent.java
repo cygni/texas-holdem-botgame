@@ -8,18 +8,18 @@ import se.cygni.texasholdem.game.GamePlayer;
 @IsATexasMessage
 public class PlayerCheckedEvent extends TexasEvent {
 
-    @Override
-    public String toString() {
-
-        return "PlayerCheckedEvent [player=" + player + "]";
-    }
-
     private final GamePlayer player;
 
     @JsonCreator
     public PlayerCheckedEvent(@JsonProperty("player") final GamePlayer player) {
 
         this.player = player;
+    }
+
+    @Override
+    public String toString() {
+
+        return "PlayerCheckedEvent [player=" + player + "]";
     }
 
     public GamePlayer getPlayer() {

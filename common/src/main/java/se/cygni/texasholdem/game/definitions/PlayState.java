@@ -15,11 +15,6 @@ public enum PlayState {
         this.name = name;
     }
 
-    public String getName() {
-
-        return name;
-    }
-
     public static PlayState getNextState(final PlayState givenState) {
 
         final PlayState[] allStates = PlayState.values();
@@ -51,5 +46,10 @@ public enum PlayState {
     public static boolean hasPreviousState(final PlayState givenState) {
 
         return givenState.ordinal() == 0 ? false : true;
+    }
+
+    public String getName() {
+
+        return name;
     }
 }

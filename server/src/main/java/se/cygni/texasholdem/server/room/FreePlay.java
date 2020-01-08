@@ -21,21 +21,17 @@ import java.util.*;
  */
 public class FreePlay extends Room {
 
-    private static Logger log = LoggerFactory
-            .getLogger(FreePlay.class);
-
     public static final String COUNTER_ID = "freeplay";
     public static final int MIN_NOOF_PLAYERS = 3;
     public static final int TIME_TILL_START_AFTER_NOOF_PLAYERS_CONNECTED_IN_MS = 1 * 60 * 1000; // 1 minute
-
+    private static Logger log = LoggerFactory
+            .getLogger(FreePlay.class);
     protected final String freePlayId = UUID.randomUUID().toString();
     protected final long freePlayCounter;
-
+    private final Table table;
     private boolean freePlayHasStarted = false;
     private boolean freePlayHasEnded = false;
     private Date created;
-
-    private final Table table;
     private Timer timer;
 
     private List<BotPlayer> playerRank = Collections.synchronizedList(new ArrayList<BotPlayer>());

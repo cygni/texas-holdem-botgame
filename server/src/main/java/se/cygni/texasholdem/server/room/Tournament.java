@@ -18,10 +18,9 @@ import java.util.*;
 
 public class Tournament extends Room {
 
+    public static final String COUNTER_ID = "tournament";
     private static Logger log = LoggerFactory
             .getLogger(Tournament.class);
-
-    public static final String COUNTER_ID = "tournament";
     protected final String tournamentId = UUID.randomUUID().toString();
     protected final long tournamentCounter;
 

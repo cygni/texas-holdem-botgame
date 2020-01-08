@@ -19,7 +19,6 @@ public final class GameUtil {
      *
      * @param players
      * @param startingFromPlayer
-     *
      * @return
      */
     public static BotPlayer getNextPlayerInPlay(
@@ -373,8 +372,7 @@ public final class GameUtil {
                             trans.getPlayer().getName(),
                             trans.getAmount(), trans.isAllIn());
                 }
-            }
-            else {
+            } else {
                 sb.append("No transactions\n");
             }
         }

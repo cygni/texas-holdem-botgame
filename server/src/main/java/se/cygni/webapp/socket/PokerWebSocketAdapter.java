@@ -7,7 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 import se.cygni.texasholdem.dao.model.GameLog;
-import se.cygni.webapp.controllers.controllers.model.WebSocketCommand;
+import se.cygni.webapp.controllers.model.WebSocketCommand;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,7 +22,6 @@ public class PokerWebSocketAdapter extends WebSocketAdapter {
     private Session session;
 
     private long subscribeTableId;
-
 
 
     public PokerWebSocketAdapter(EventBus eventBus) {
@@ -60,15 +59,15 @@ public class PokerWebSocketAdapter extends WebSocketAdapter {
 
             // Do something based om command in message
             switch (cmd.command) {
-                case "options" :
+                case "options":
                     sendAndForget("Good boy!");
                     break;
 
-                case "subscribeToTable" :
+                case "subscribeToTable":
 
                     break;
 
-                case "subscribeToPlayers" :
+                case "subscribeToPlayers":
 
                     break;
 
@@ -76,9 +75,8 @@ public class PokerWebSocketAdapter extends WebSocketAdapter {
                     sendAndForget(new WebSocketCommand("fail", "Failed to handle your request"));
                     break;
             }
-        }
-        catch (Exception e) {
-            sendAndForget(new WebSocketCommand("fail", e.getMessage()   ));
+        } catch (Exception e) {
+            sendAndForget(new WebSocketCommand("fail", e.getMessage()));
         }
     }
 
@@ -112,8 +110,8 @@ public class PokerWebSocketAdapter extends WebSocketAdapter {
         eventBus.unregister(this);
         eventBus = null;
         timer.cancel();
-            session.close();
-            session = null;
+        session.close();
+        session = null;
     }
 
     @Override

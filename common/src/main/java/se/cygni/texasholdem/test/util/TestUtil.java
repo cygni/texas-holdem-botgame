@@ -17,7 +17,6 @@ public class TestUtil {
      * of spades
      *
      * @param shorthand
-     *
      * @return a list of Cards
      */
     public static List<Card> getCards(final String... shorthand) {
@@ -44,7 +43,6 @@ public class TestUtil {
      * community cards.
      *
      * @param shorthand
-     *
      * @return
      */
     public static PokerHandUtil createPokerHandUtil(final String... shorthand) {

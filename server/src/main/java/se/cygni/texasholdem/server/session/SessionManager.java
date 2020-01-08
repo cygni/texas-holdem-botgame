@@ -36,11 +36,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class SessionManager {
 
+    public static final String SESSION_ID = "SESSION_ID";
     private static Logger log = LoggerFactory
             .getLogger(SessionManager.class);
-
-    public static final String SESSION_ID = "SESSION_ID";
-
     private final EventBus eventBus;
     private final GamePlan gamePlan;
     private final MessageSender messageSender;

@@ -17,8 +17,8 @@ var player;
  */
 function connect(host, port, botPlayer) {
 
-	var saveForNext = null;
-	
+    var saveForNext = null;
+
     player = botPlayer;
 
     client.connect(port, host, function () {
@@ -31,22 +31,22 @@ function connect(host, port, botPlayer) {
 
         var stringData = data.toString();
         if (saveForNext) {
-        	stringData = saveForNext+stringData;
-        	saveForNext = null;
+            stringData = saveForNext + stringData;
+            saveForNext = null;
         }
         var isComplete = endsWith(stringData, jsonDelimiter);
         var jsonArr = stringData.split(jsonDelimiter);
         var jsonStr;
-        
-        while(jsonArr.length > 0) {
+
+        while (jsonArr.length > 0) {
             jsonStr = jsonArr.shift();
-	        if (jsonArr.length === 0 && !isComplete) {
-		    	saveForNext = jsonStr; // if last in array is incomplete then save it and exit
-		    	break;
-	        }
-	        if (jsonStr) {
-	            routeEvent(JSON.parse(jsonStr));
-	        }
+            if (jsonArr.length === 0 && !isComplete) {
+                saveForNext = jsonStr; // if last in array is incomplete then save it and exit
+                break;
+            }
+            if (jsonStr) {
+                routeEvent(JSON.parse(jsonStr));
+            }
         }
     });
 
@@ -73,21 +73,25 @@ function endsWith(str, suffix) {
 function playAGame(room) {
     client.write(JSON.stringify(createRegisterForPlayRequest(room)) + jsonDelimiter);
 }
+
 exports.playAGame = playAGame;
 
 function ROOM_TRAINING() {
     return 'TRAINING';
 }
+
 exports.ROOM_TRAINING = ROOM_TRAINING;
 
 function ROOM_TOURNAMENT() {
     return 'TOURNAMENT';
 }
+
 exports.ROOM_TOURNAMENT = ROOM_TOURNAMENT;
 
 function ROOM_FREEPLAY() {
     return 'FREEPLAY';
 }
+
 exports.ROOM_FREEPLAY = ROOM_FREEPLAY;
 
 /**
@@ -104,7 +108,7 @@ function createRegisterForPlayRequest(room) {
 
     var request = {
         type: 'se.cygni.texasholdem.communication.message.request.RegisterForPlayRequest',
-        sessionId : '',
+        sessionId: '',
         requestId: Math.uuid(),
         name: player.getName(),
         room: room
@@ -130,22 +134,22 @@ function routeEvent(event) {
     if (clazz === 'ActionRequest') {
         var chosenAction = player.onActionRequest(event.possibleActions);
         var actionResponse = {
-            type : 'se.cygni.texasholdem.communication.message.response.ActionResponse',
-            requestId : event.requestId,
-            action : chosenAction
+            type: 'se.cygni.texasholdem.communication.message.response.ActionResponse',
+            requestId: event.requestId,
+            action: chosenAction
         };
 
         client.write(JSON.stringify(actionResponse) + jsonDelimiter);
     } else {
-    	if (pkg === 'event') {
-	        if (!player['on' + clazz]) {
-	            throw new Error('Could not find player method on' + clazz);
-	        }
+        if (pkg === 'event') {
+            if (!player['on' + clazz]) {
+                throw new Error('Could not find player method on' + clazz);
+            }
             player.dispatchEvent(event);
-    	}
-    	if (pkg === 'exception') {
-            throw new Error('Got Exception from server: '+clazz+', ' + event.message);
-    	}
+        }
+        if (pkg === 'exception') {
+            throw new Error('Got Exception from server: ' + clazz + ', ' + event.message);
+        }
     }
 }
 

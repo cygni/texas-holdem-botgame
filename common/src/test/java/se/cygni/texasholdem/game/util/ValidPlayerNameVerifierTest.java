@@ -11,7 +11,7 @@ public class ValidPlayerNameVerifierTest {
         ValidPlayerNameVerifier.verifyName(name);
     }
 
-    @Test (expected = InvalidNameException.class)
+    @Test(expected = InvalidNameException.class)
     public void testVerifyNameInvalidName() throws Exception {
         String name = "<script>alert(\"Join freeplay\")</script>";
         ValidPlayerNameVerifier.verifyName(name);

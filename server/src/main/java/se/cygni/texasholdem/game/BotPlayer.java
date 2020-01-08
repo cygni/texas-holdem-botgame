@@ -7,8 +7,8 @@ public class BotPlayer {
 
     private final String name;
     private final String sessionId;
-    private long chipAmount;
     private final List<Card> cards = new ArrayList<>();
+    private long chipAmount;
 
     public BotPlayer(final String name, final String sessionId,
                      final long chipAmount) {
@@ -99,7 +99,6 @@ public class BotPlayer {
         final BotPlayer other = (BotPlayer) obj;
         if (sessionId == null) {
             return other.sessionId == null;
-        }
-        else return sessionId.equals(other.sessionId);
+        } else return sessionId.equals(other.sessionId);
     }
 }

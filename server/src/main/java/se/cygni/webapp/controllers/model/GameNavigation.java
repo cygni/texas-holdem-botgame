@@ -1,4 +1,4 @@
-package se.cygni.webapp.controllers.controllers.model;
+package se.cygni.webapp.controllers.model;
 
 public class GameNavigation {
 

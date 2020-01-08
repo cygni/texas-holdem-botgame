@@ -12,10 +12,14 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet(value="/websockets/test", loadOnStartup=1)
+@WebServlet(value = "/websockets/test", loadOnStartup = 1)
 public class PokerWebSocketServlet extends org.eclipse.jetty.websocket.servlet.WebSocketServlet {
 
     private EventBus eventBus;
+
+    public PokerWebSocketServlet() {
+        System.out.println("Created hellowebsocketservlet");
+    }
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -28,10 +32,6 @@ public class PokerWebSocketServlet extends org.eclipse.jetty.websocket.servlet.W
         System.out.println("EventBus: " + eventBus);
     }
 
-    public PokerWebSocketServlet() {
-        System.out.println("Created hellowebsocketservlet");
-    }
-
     @Override
     public void configure(WebSocketServletFactory factory) {
         System.out.println("Created PokerWebSocketAdapter via factory!");
@@ -39,7 +39,7 @@ public class PokerWebSocketServlet extends org.eclipse.jetty.websocket.servlet.W
 
         /* ToDo: Fix this to return a Spring-bean
 
-        */
+         */
         factory.setCreator(new WebSocketCreator() {
             @Override
             public Object createWebSocket(ServletUpgradeRequest req, ServletUpgradeResponse resp) {
