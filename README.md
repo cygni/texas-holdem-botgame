@@ -4,7 +4,7 @@ This is a server/client system for letting programmed bots play poker against ea
 
 **Quickstart** &mdash; _Host your own server._
 
-    git clone https://github.com/emilb/texas-holdem-botgame.git
+    git clone https://github.com/cygni/texas-holdem-botgame.git
     cd texas-holdem-botgame
 
     docker build -f Dockerfile-server -t texas .
@@ -14,7 +14,7 @@ Open browser to: http://localhost:8080
 
 **Quickstart** &mdash; _Developing your client_
 
-    git clone https://github.com/emilb/texas-holdem-botgame.git
+    git clone https://github.com/cygni/texas-holdem-botgame.git
     cd texas-holdem-botgame
 
     docker build -f Dockerfile-client -t texas-client .
