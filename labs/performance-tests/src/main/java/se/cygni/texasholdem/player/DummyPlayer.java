@@ -11,7 +11,7 @@ import se.cygni.texasholdem.game.Room;
 
 public class DummyPlayer extends BasicPlayer {
 
-    private static final String DEFAULT_HOST = "localhost";
+    private static final String DEFAULT_HOST = "35.228.157.164";
     private static final int DEFAULT_PORT = 4711;
     private static final String HOST_PROPERTY = "host";
     private static final String PORT_PROPERTY = "port";
@@ -66,6 +66,7 @@ public class DummyPlayer extends BasicPlayer {
         } catch (Exception e) {
 
             e.printStackTrace();
+            System.exit(1);
         }
     }
 

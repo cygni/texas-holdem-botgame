@@ -1,0 +1,23 @@
+runtime: custom
+env: flex
+service: default
+threadsafe: yes
+
+network:
+  instance_tag: texasholdem
+  name: default
+  session_affinity: true
+  forwarded_ports:
+    - 80:8080
+    - 4711/tcp
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 1
+  cool_down_period_sec: 120 # default value
+  cpu_utilization:
+
+resources:
+  cpu: 2
+  memory_gb: 4
+  disk_size_gb: 10
