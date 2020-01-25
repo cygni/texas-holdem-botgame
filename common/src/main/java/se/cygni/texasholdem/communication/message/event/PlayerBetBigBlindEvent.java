@@ -32,7 +32,7 @@ public class PlayerBetBigBlindEvent extends TexasEvent {
     @Override
     public String toString() {
 
-        return "PlayerCalledEvent [player=" + player + ", bigBlind=" + bigBlind
+        return "PlayerBetBigBlindEvent [player=" + player + ", bigBlind=" + bigBlind
                 + "]";
     }
 }
