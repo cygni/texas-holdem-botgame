@@ -13,6 +13,7 @@
     <link href="<c:url value="/resources/css/bootstrap-responsive-2.2.2.min.css" />" rel="stylesheet" type="text/css"/>
     <link href="<c:url value="/resources/css/prettify.css" />" rel="stylesheet" type="text/css"/>
     <link href="<c:url value="/resources/css/jquery.jqplot.min.css" />" rel="stylesheet" type="text/css"/>
+    <link href="<c:url value="/resources/css/poker.css" />" rel="stylesheet" type="text/css"/>
 
     <link rel="icon" href="<c:url value="/resources/img/favicon.ico" />" type="image/png">
     <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico" />" type="image/png">

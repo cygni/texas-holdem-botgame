@@ -89,7 +89,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th colspan="2">Numbers</th>
+                        <th colspan="2"><h2>Game settings</h2></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -147,6 +147,147 @@
                             <div class="pull-right">${gamePlan.maxNoofActionRetries}</div>
                         </td>
                     </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="well well-large">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="2"><h2>Poker hands</h2></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="white-space:nowrap;">Royal straight flush</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/ACE_SPADES_large.png"     alt="ACE of SPADES" rel="tooltip" data-placement="top" data-original-title="ACE of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/KING_SPADES_large.png"   alt="KING of SPADES" rel="tooltip" data-placement="top" data-original-title="KING of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/QUEEN_SPADES_large.png" alt="QUEEN of SPADES" rel="tooltip" data-placement="top" data-original-title="QUEEN of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/JACK_SPADES_large.png"   alt="JACK of SPADES" rel="tooltip" data-placement="top" data-original-title="JACK of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_SPADES_large.png"     alt="TEN of SPADES" rel="tooltip" data-placement="top" data-original-title="TEN of SPADES">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Straight flush</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_DIAMONDS_large.png"     alt="TEN of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="TEN of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/NINE_DIAMONDS_large.png"   alt="NINE of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="NINE of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/EIGHT_DIAMONDS_large.png" alt="EIGHT of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="EIGHT of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/SEVEN_DIAMONDS_large.png"   alt="SEVEN of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="SEVEN of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/SIX_DIAMONDS_large.png"     alt="SIX of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="SIX of DIAMONDS">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Four of a kind</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_CLUBS_large.png"     alt="TEN of CLUBS" rel="tooltip" data-placement="top" data-original-title="TEN of CLUBS">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_HEARTS_large.png"   alt="TEN of HEARTS" rel="tooltip" data-placement="top" data-original-title="TEN of HEARTS">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_DIAMONDS_large.png" alt="TEN of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="TEN of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_SPADES_large.png"   alt="TEN of SPADES" rel="tooltip" data-placement="top" data-original-title="TEN of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/DEUCE_HEARTS_large.png"     alt="DEUCE of HEARTS" rel="tooltip" data-placement="top" data-original-title="DEUCE of HEARTS">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Full House</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/QUEEN_DIAMONDS_large.png"     alt="QUEEN of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="QUEEN of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/QUEEN_CLUBS_large.png"   alt="QUEEN of CLUBS" rel="tooltip" data-placement="top" data-original-title="QUEEN of CLUBS">
+                                    <img class="pokercard" src="/resources/img/cards/QUEEN_SPADES_large.png" alt="QUEEN of SPADES" rel="tooltip" data-placement="top" data-original-title="QUEEN of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/SIX_DIAMONDS_large.png"   alt="SIX of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="SIX of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/SIX_SPADES_large.png"     alt="SIX of SPADES" rel="tooltip" data-placement="top" data-original-title="SIX of SPADES">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Flush</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/KING_DIAMONDS_large.png"     alt="KING of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="KING of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_DIAMONDS_large.png"   alt="TEN of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="TEN of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/EIGHT_DIAMONDS_large.png" alt="EIGHT of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="EIGHT of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/FIVE_DIAMONDS_large.png"   alt="FIVE of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="FIVE of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/DEUCE_DIAMONDS_large.png"     alt="DEUCE of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="DEUCE of DIAMONDS">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Straight</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_DIAMONDS_large.png"     alt="TEN of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="TEN of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/NINE_SPADES_large.png"   alt="NINE of SPADES" rel="tooltip" data-placement="top" data-original-title="NINE of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/EIGHT_HEARTS_large.png" alt="EIGHT of HEARTS" rel="tooltip" data-placement="top" data-original-title="EIGHT of HEARTS">
+                                    <img class="pokercard" src="/resources/img/cards/SEVEN_DIAMONDS_large.png"   alt="SEVEN of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="SEVEN of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/SIX_CLUBS_large.png"     alt="SIX of CLUBS" rel="tooltip" data-placement="top" data-original-title="SIX of CLUBS">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Three of a kind</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/ACE_DIAMONDS_large.png"     alt="ACE of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="ACE of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/ACE_CLUBS_large.png"   alt="ACE of CLUBS" rel="tooltip" data-placement="top" data-original-title="ACE of CLUBS">
+                                    <img class="pokercard" src="/resources/img/cards/ACE_SPADES_large.png" alt="ACE of SPADES" rel="tooltip" data-placement="top" data-original-title="ACE of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/TEN_DIAMONDS_large.png"   alt="TEN of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="TEN of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/FIVE_SPADES_large.png"     alt="FIVE of SPADES" rel="tooltip" data-placement="top" data-original-title="FIVE of SPADES">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Two pair</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/ACE_DIAMONDS_large.png"     alt="ACE of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="ACE of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/ACE_CLUBS_large.png"   alt="ACE of CLUBS" rel="tooltip" data-placement="top" data-original-title="ACE of CLUBS">
+                                    <img class="pokercard" src="/resources/img/cards/JACK_DIAMONDS_large.png"   alt="JACK of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="JACK of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/JACK_SPADES_large.png"     alt="JACK of SPADES" rel="tooltip" data-placement="top" data-original-title="JACK of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/THREE_SPADES_large.png" alt="THREE of SPADES" rel="tooltip" data-placement="top" data-original-title="THREE of SPADES">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>One pair</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/ACE_DIAMONDS_large.png"     alt="ACE of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="ACE of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/ACE_CLUBS_large.png"   alt="ACE of CLUBS" rel="tooltip" data-placement="top" data-original-title="ACE of CLUBS">
+                                    <img class="pokercard" src="/resources/img/cards/NINE_DIAMONDS_large.png"   alt="NINE of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="NINE of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/SEVEN_SPADES_large.png"     alt="SEVEN of SPADES" rel="tooltip" data-placement="top" data-original-title="SEVEN of SPADES">
+                                    <img class="pokercard" src="/resources/img/cards/THREE_SPADES_large.png" alt="THREE of SPADES" rel="tooltip" data-placement="top" data-original-title="THREE of SPADES">
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>High card</td>
+                            <td>
+                                <div class="pull-right">
+                                    <img class="pokercard" src="/resources/img/cards/KING_CLUBS_large.png"   alt="KING of CLUBS" rel="tooltip" data-placement="top" data-original-title="KING of CLUBS">
+                                    <img class="pokercard" src="/resources/img/cards/JACK_DIAMONDS_large.png"   alt="JACK of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="JACK of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/NINE_HEARTS_large.png"     alt="NINE of HEARTS" rel="tooltip" data-placement="top" data-original-title="NINE of HEARTS">
+                                    <img class="pokercard" src="/resources/img/cards/SIX_DIAMONDS_large.png"     alt="SIX of DIAMONDS" rel="tooltip" data-placement="top" data-original-title="SIX of DIAMONDS">
+                                    <img class="pokercard" src="/resources/img/cards/THREE_SPADES_large.png" alt="THREE of SPADES" rel="tooltip" data-placement="top" data-original-title="THREE of SPADES">
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

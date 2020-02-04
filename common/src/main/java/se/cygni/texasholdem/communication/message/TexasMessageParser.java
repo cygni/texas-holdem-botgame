@@ -75,11 +75,14 @@ public final class TexasMessageParser {
                     .readValue(msg,
                             TexasMessageParser.parseAndGetClassForMessage(msg));
 
+            /* Skip this warning - we have switched to a JavaScript client that has another versioning scheme.
+
             if (!currentVersion.equals(message.getVersion())) {
                 log.warn("The node you are communicating with is at version: [{}] and this client is at version: [{}]",
                         message.getVersion(),
                         currentVersion);
             }
+            */
 
             return message;
         } catch (final IllegalStateException e) {

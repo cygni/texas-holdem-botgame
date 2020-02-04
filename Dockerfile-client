@@ -1,2 +1,0 @@
-FROM node:13.5.0-stretch-slim
-# The existing JS-client is in ./client-implementations/nodejs-client

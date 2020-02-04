@@ -8,6 +8,10 @@ import se.cygni.texasholdem.server.session.SessionManager;
 import se.cygni.texasholdem.table.GamePlan;
 import se.cygni.texasholdem.table.Table;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Rooms manage players in tables and starts games when appropriate.
  * A player may be moved to another table when the Room deems necessary.
@@ -42,7 +46,7 @@ public class Training extends Room {
         tables.add(table);
 
         thread = new Thread(table);
-        thread.setName("Training - " + player.getName() + " tid: " + table.getTableCounter());
+        thread.setName("Training - " + player.getName() + " tableId: " + table.getTableCounter());
         thread.start();
 
         return true;
@@ -50,9 +54,17 @@ public class Training extends Room {
 
     @Override
     public void onTableGameDone(Table table) {
-        log.info("Training for player: " + player.getName() + " is done");
-        eventBus.unregister(this);
-        sessionManager.terminateSession(player);
+
+
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.schedule(new Runnable() {
+            @Override
+            public void run() {
+                log.info("Training for player: " + player.getName() + " is done");
+                eventBus.unregister(this);
+                sessionManager.terminateSession(player);
+            }
+        }, 3, TimeUnit.SECONDS);
     }
 
     @Override
