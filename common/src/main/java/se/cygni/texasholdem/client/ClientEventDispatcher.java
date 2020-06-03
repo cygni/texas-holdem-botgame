@@ -123,7 +123,7 @@ public class ClientEventDispatcher {
         }
 
         final Class<? extends TexasEvent> eventClass = event.getClass();
-        log.debug("onEvent, looking for matching method for argument: {}",
+        log.trace("onEvent, looking for matching method for argument: {}",
                 eventClass.getSimpleName());
 
         if (invokeMap.containsKey(eventClass)) {

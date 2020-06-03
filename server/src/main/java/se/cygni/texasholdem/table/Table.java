@@ -199,6 +199,22 @@ public class Table implements Runnable {
         return tableCounter;
     }
 
+    public long getSmallBlind() {
+        return smallBlind;
+    }
+
+    public void setSmallBlind(long smallBlind) {
+        this.smallBlind = smallBlind;
+    }
+
+    public long getBigBlind() {
+        return bigBlind;
+    }
+
+    public void setBigBlind(long bigBlind) {
+        this.bigBlind = bigBlind;
+    }
+
     @Override
     public int hashCode() {
 

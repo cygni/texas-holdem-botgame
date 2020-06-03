@@ -32,6 +32,7 @@ public class GameRound {
     private final BotPlayer dealerPlayer;
     private final BotPlayer smallBlindPlayer;
     private final BotPlayer bigBlindPlayer;
+    private BotPlayer lastPlayerToAct;
 
     private final long smallBlind;
     private final long bigBlind;
@@ -104,6 +105,8 @@ public class GameRound {
         long bigBlindAmount = pot.bet(bigBlindPlayer, bigBlind);
         EventBusUtil.postPlayerBetBigBlind(eventBus, bigBlindPlayer, bigBlindAmount, players);
         log.debug("{} placed big blind of {}", bigBlindPlayer.getName(), bigBlindAmount);
+
+        lastPlayerToAct = bigBlindPlayer;
 
         // Pre flop
         log.debug("PRE FLOP betting round");
@@ -202,34 +205,51 @@ public class GameRound {
             return;
         }
 
-        int noofTurns = 1;
-        boolean isFirstRound = true;
-        while (!pot.isCurrentPlayStateBalanced()
-                || (isFirstRound && !pot.isInPlayState(PlayState.PRE_FLOP))) {
-            for (BotPlayer currentPlayer : playersInOrder) {
-                log.debug("Current player is {}", currentPlayer);
+        boolean isFirstStateRound = true;
+        int betsInState = 0;
+        while (appliesToSpecialRuleForBigBindPlayerAllowedToRaise(betsInState) ||
+                notAllPlayersHasHadAChanceToPlay(playersInOrder) ||
+                (!pot.isCurrentPlayStateBalanced() || isFirstStateRound)) {
 
-                if (!pot.isAbleToBet(currentPlayer)) {
-                    log.debug("{} is not able to bet, skipping", currentPlayer);
-                    continue;
-                }
+            BotPlayer currentPlayer = GameUtil.getNextPlayerInPlay(players, lastPlayerToAct, pot);
+            log.debug("Current player is {}", currentPlayer);
 
-                final Action action = prepareAndGetActionFromPlayer(currentPlayer, noofTurns < maxNoofTurnsPerState);
-                act(action, currentPlayer);
-            }
-            noofTurns++;
+            final Action action = prepareAndGetActionFromPlayer(currentPlayer, true);
 
-            isFirstRound = false;
+            act(action, currentPlayer);
+            isFirstStateRound = false;
+            betsInState++;
+            playersInOrder.remove(currentPlayer);
         }
+
+        // Reset so that small blind is the first to act after a state change
+        lastPlayerToAct = dealerPlayer;
     }
 
+    protected boolean notAllPlayersHasHadAChanceToPlay(List<BotPlayer> playersInOrder) {
+        boolean stillPlayersLeft = playersInOrder.size() > 0;
+        log.debug("Still {} players left to make an action", playersInOrder.size());
+        return stillPlayersLeft;
+    }
+
+    protected boolean appliesToSpecialRuleForBigBindPlayerAllowedToRaise(int betsInState) {
+        boolean bigBlindRule = betsInState == 1
+                && lastPlayerToAct.equals(smallBlindPlayer)
+                && pot.isInPlayState(PlayState.PRE_FLOP)
+                && pot.isAbleToBet(bigBlindPlayer);
+
+        if (bigBlindRule)
+            log.debug("Letting Big Blind player use its option to raise");
+
+        return bigBlindRule;
+    }
     protected void doInitialBettingRound() {
 
         log.debug("Initial Betting Round starting");
 
         // Start with next active player after bigBlindPlayer
         final List<BotPlayer> playerOrder = GameUtil
-                .getOrderedListOfPlayersInPlay(players, bigBlindPlayer, pot);
+                .getOrderedListOfPlayersInPlayPreFlop(players, bigBlindPlayer, smallBlindPlayer, bigBlindPlayer, pot);
 
         for (final BotPlayer player : playerOrder) {
             log.debug("Letting {} act", player);
@@ -246,17 +266,18 @@ public class GameRound {
         int counter = 0;
 
         Action userAction = null;
-        while (!GameUtil.isActionValid(possibleActions, userAction) && counter < maxNoofActionRetries) {
+        while (!GameUtil.isActionValid(player, pot, possibleActions, userAction) && counter < maxNoofActionRetries) {
             userAction = getActionFromPlayer(possibleActions, player);
             counter++;
         }
 
-        if (!GameUtil.isActionValid(possibleActions, userAction)) {
+        if (!GameUtil.isActionValid(player, pot, possibleActions, userAction)) {
             log.debug("{} did not reply with a valid action, auto-folding", player);
             userAction = new Action(ActionType.FOLD, 0);
             EventBusUtil.postPlayerForcedFolded(eventBus, player, pot.getTotalBetAmountForPlayer(player));
         }
 
+        lastPlayerToAct = player;
         return userAction;
     }
 
@@ -269,7 +290,7 @@ public class GameRound {
             return response.getAction();
 
         } catch (final Exception e) {
-            log.info("Player failed to respond, folding for this round", e);
+            log.info("Player {} failed to respond, folding for this round", player.getName(), e);
             pot.fold(player);
             EventBusUtil.postPlayerForcedFolded(eventBus, player, pot.getTotalBetAmountForPlayer(player));
             return new Action(ActionType.FOLD, 0);

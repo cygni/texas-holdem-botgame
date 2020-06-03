@@ -34,8 +34,8 @@ public class TournamentTable extends Table {
         log.info("Starting the GAME!");
         gameHasStarted = true;
 
-        smallBlind = gamePlan.getSmallBlindStart();
-        bigBlind = gamePlan.getBigBlindStart();
+        smallBlind = Math.max(gamePlan.getSmallBlindStart(), smallBlind);
+        bigBlind = Math.max(gamePlan.getBigBlindStart(), bigBlind);
         int roundCounter = 0;
 
         bustedPlayers = GameUtil.getBustedPlayers(players);

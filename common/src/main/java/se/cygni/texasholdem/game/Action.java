@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class Action {
 
     private final ActionType actionType;
-    private final long amount;
+    private long amount;
 
     @JsonCreator
     public Action(@JsonProperty("actionType") final ActionType actionType,
@@ -24,6 +24,11 @@ public class Action {
     public long getAmount() {
 
         return amount;
+    }
+
+    public void setAmount(long amount) {
+
+        this.amount = amount;
     }
 
     @Override

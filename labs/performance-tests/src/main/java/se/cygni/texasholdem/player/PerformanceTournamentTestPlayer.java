@@ -19,10 +19,10 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class PerformanceTournamentTestPlayer extends BasicPlayer {
 
-    private static final String DEFAULT_HOST = "poker.cygni.se";
+    private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 4711;
     private static final String DEFAULT_NAME = "perftest";
-    private static final int DEFAULT_NOOF_PLAYERS = 5;
+    private static final int DEFAULT_NOOF_PLAYERS = 25;
     private static final AtomicInteger counter = new AtomicInteger(0);
     private static final String HOST_PROPERTY = "host";
     private static final String PORT_PROPERTY = "port";

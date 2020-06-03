@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import se.cygni.texasholdem.game.BotPlayer;
 import se.cygni.texasholdem.game.pot.Pot;
+import se.cygni.texasholdem.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,31 @@ public class GameUtilTest {
     @Test
     public void testGetOrderedListOfPlayersInPlay() throws Exception {
 
+        // Dealer is player on index 0, small blind 1 and big blind 2
+        List<BotPlayer> players = createRandomListOfPlayers(5);
+        Pot pot = new Pot(players);
+
+        List<BotPlayer> expectedOrder = new ArrayList<>(players);
+        BotPlayer dealer = expectedOrder.remove(0);
+        expectedOrder.add(dealer);
+
+        assertEqualList(expectedOrder, GameUtil.getOrderedListOfPlayersInPlay(players, dealer, pot));
+    }
+
+    @Test
+    public void testGetOrderedListOfPlayersInPlayPreFlop() throws Exception {
+
+        // Dealer is player on index 0, small blind 1 and big blind 2
+        List<BotPlayer> players = createRandomListOfPlayers(5);
+        Pot pot = new Pot(players);
+
+        List<BotPlayer> expectedOrder = new ArrayList<>(players);
+        BotPlayer dealer = expectedOrder.remove(0);
+        BotPlayer smallBlind = expectedOrder.remove(1);
+        BotPlayer bigBlind = expectedOrder.remove(2);
+        expectedOrder.add(dealer);
+
+        assertEqualList(expectedOrder, GameUtil.getOrderedListOfPlayersInPlayPreFlop(players, dealer, smallBlind, bigBlind, pot));
     }
 
     @Test

@@ -163,14 +163,40 @@ public class Tournament extends Room {
             playTillNoofPlayersLeft = 0;
         }
 
+        long[] lastBlinds = getHighestBlinds();
+
         for (List<BotPlayer> playersInTable : partitionedPlayers) {
             Table table = new TournamentTable(gamePlan, this, eventBus, sessionManager, playTillNoofPlayersLeft);
             table.addPlayers(playersInTable);
+
+            if (lastBlinds[0] > 0) {
+                table.setSmallBlind(lastBlinds[0]);
+                table.setBigBlind(lastBlinds[1]);
+            }
             tablesPlayedIds.add(table.getTableCounter());
             tables.add(table);
         }
 
         tablePartitions.add(new ArrayList<Long>(tablesPlayedIds));
+    }
+
+    // Returns the highest blinds from the available tables in the
+    // format: [smallBlind, bigBlind]
+    private long[] getHighestBlinds() {
+        if (tables.size() == 0) {
+            return new long[] {0, 0};
+        }
+
+        long highest = 0;
+        Table highestTable = null;
+        for (Table table : tables) {
+            if (table.getBigBlind() > highest) {
+                highest = table.getBigBlind();
+                highestTable = table;
+            }
+        }
+
+        return new long[] {highestTable.getSmallBlind(), highestTable.getBigBlind()};
     }
 
     private void shutdown() {

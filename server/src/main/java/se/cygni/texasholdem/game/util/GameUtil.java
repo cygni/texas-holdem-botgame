@@ -79,6 +79,20 @@ public final class GameUtil {
         return result;
     }
 
+    public static List<BotPlayer> getOrderedListOfPlayersInPlayPreFlop(
+            final List<BotPlayer> players,
+            final BotPlayer startingFromPlayer,
+            final BotPlayer smallBlindPlayer,
+            final BotPlayer bigBlindPlayer,
+            final Pot pot) {
+
+        final List<BotPlayer> result = getOrderedListOfPlayersInPlay(players, startingFromPlayer, pot);
+        result.remove(smallBlindPlayer);
+        result.remove(bigBlindPlayer);
+
+        return result;
+    }
+
     /**
      * Creates a list of players still active in current game (i.e. has not
      * folded and has money left)
@@ -178,15 +192,18 @@ public final class GameUtil {
             actions.add(new Action(ActionType.ALL_IN, player.getChipAmount()));
         }
 
-        // Raise is done in increments of the bigBlindValue
-        if (raiseAllowed && player.getChipAmount() >= amountNeededToCall + bigBlind) {
-            actions.add(new Action(ActionType.RAISE, amountNeededToCall + bigBlind));
+        // Raise is suggested to be done in increments of the bigBlindValue
+        if (raiseAllowed && player.getChipAmount() > amountNeededToCall) {
+            long playerRestAmountAfterCall = player.getChipAmount() - amountNeededToCall;
+
+            actions.add(new Action(ActionType.RAISE, amountNeededToCall
+                    + Math.min(bigBlind, playerRestAmountAfterCall)));
         }
 
         return actions;
     }
 
-    public static boolean isActionValid(List<Action> possibleActions, Action playerAction) {
+    public static boolean isActionValid(BotPlayer player, Pot pot, List<Action> possibleActions, Action playerAction) {
         if (playerAction == null) {
             return false;
         }
@@ -215,8 +232,9 @@ public final class GameUtil {
                     return false;
                 }
 
-                Action allowedRaise = getActionOfType(possibleActions, ActionType.RAISE);
-                return (playerAction.getAmount() == allowedRaise.getAmount());
+                long amountNeededToCall = pot.getAmountNeededToCall(player);
+                return playerAction.getAmount() > amountNeededToCall
+                        && playerAction.getAmount() <= player.getChipAmount();
 
             case ALL_IN:
                 if (!containsActionType(possibleActions, ActionType.ALL_IN)) {
