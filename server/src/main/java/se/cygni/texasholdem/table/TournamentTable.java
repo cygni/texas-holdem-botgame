@@ -51,6 +51,7 @@ public class TournamentTable extends Table {
 
             currentGameRound = new GameRound(
                     tableCounter,
+                    roundCounter,
                     currentPlayers,
                     dealerPlayer,
                     smallBlind, bigBlind,

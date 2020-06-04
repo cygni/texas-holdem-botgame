@@ -28,6 +28,7 @@ public class GameRound {
             .synchronizedList(new ArrayList<BotPlayer>());
 
     private final long tableId;
+    private final long round;
 
     private final BotPlayer dealerPlayer;
     private final BotPlayer smallBlindPlayer;
@@ -52,6 +53,7 @@ public class GameRound {
 
 
     public GameRound(final long tableId,
+                     final long round,
                      final List<BotPlayer> players,
                      final BotPlayer dealerPlayer, final long smallBlind,
                      final long bigBlind,
@@ -63,6 +65,7 @@ public class GameRound {
         pot = new Pot(GameUtil.getActivePlayersWithChipsLeft(players));
 
         this.tableId = tableId;
+        this.round = round;
         this.players.addAll(players);
         this.dealerPlayer = dealerPlayer;
 
@@ -272,7 +275,7 @@ public class GameRound {
         }
 
         if (!GameUtil.isActionValid(player, pot, possibleActions, userAction)) {
-            log.debug("{} did not reply with a valid action, auto-folding", player);
+            log.info("{} did not reply with a valid action, auto-folding. TableId: {}, round: {}, invalid action: {}", player, tableId, round, userAction);
             userAction = new Action(ActionType.FOLD, 0);
             EventBusUtil.postPlayerForcedFolded(eventBus, player, pot.getTotalBetAmountForPlayer(player));
         }
@@ -290,7 +293,7 @@ public class GameRound {
             return response.getAction();
 
         } catch (final Exception e) {
-            log.info("Player {} failed to respond, folding for this round", player.getName(), e);
+            log.info("Player {} failed to respond on table {}, folding for round: {}. {}", player.getName(), tableId, round, e.getMessage());
             pot.fold(player);
             EventBusUtil.postPlayerForcedFolded(eventBus, player, pot.getTotalBetAmountForPlayer(player));
             return new Action(ActionType.FOLD, 0);

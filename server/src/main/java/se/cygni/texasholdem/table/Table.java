@@ -75,6 +75,7 @@ public class Table implements Runnable {
 
             currentGameRound = new GameRound(
                     tableCounter,
+                    roundCounter,
                     currentPlayers,
                     dealerPlayer,
                     smallBlind, bigBlind,

@@ -56,7 +56,7 @@ public class GameRoundTest {
     @Test
     public void testCorrectPlayerAssignmentSimple() {
 
-        final GameRound round = new GameRound(1, players, pA, 5, 10, 10, 3, eventBus,
+        final GameRound round = new GameRound(1, 0, players, pA, 5, 10, 10, 3, eventBus,
                 sessionManager);
 
         assertEquals(pA, round.getDealerPlayer());
@@ -67,7 +67,7 @@ public class GameRoundTest {
     @Test
     public void testCorrectPlayerAssignmentWithTwoPlayers() {
 
-        final GameRound round = new GameRound(1, players.subList(0, 2), pA, 5, 10,
+        final GameRound round = new GameRound(1, 0, players.subList(0, 2), pA, 5, 10,
                 10, 3, eventBus,
                 sessionManager);
 
@@ -79,7 +79,7 @@ public class GameRoundTest {
     @Test
     public void testCorrectPlayerAssignmentTurn() {
 
-        final GameRound round = new GameRound(1, players, pC, 5, 10, 10, 3, eventBus,
+        final GameRound round = new GameRound(1, 0, players, pC, 5, 10, 10, 3, eventBus,
                 sessionManager);
 
         assertEquals(pC, round.getDealerPlayer());
@@ -93,7 +93,7 @@ public class GameRoundTest {
         final ArgumentCaptor<EventWrapper> argument = ArgumentCaptor
                 .forClass(EventWrapper.class);
 
-        final GameRound round = new GameRound(1, players, pA, 5, 10, 10, 3, eventBus,
+        final GameRound round = new GameRound(1, 0, players, pA, 5, 10, 10, 3, eventBus,
                 sessionManager);
 
         round.playGameRound();
