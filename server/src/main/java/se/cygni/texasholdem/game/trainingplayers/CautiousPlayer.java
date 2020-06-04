@@ -110,7 +110,6 @@ public class CautiousPlayer extends TrainingPlayer {
             }
         }
 
-
         // failsafe
         return foldAction;
     }

@@ -25,7 +25,7 @@
         </encoder>
     </appender>
 
-    <logger name="se" level="INFO"/>
+    <logger name="se" level="DEBUG"/>
     <root level="WARN">
         <appender-ref ref="STDOUT"/>
     </root>
