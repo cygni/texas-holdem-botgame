@@ -16,6 +16,7 @@ public class GamePlan {
     private long bigBlindRaiseStrategyValue;
     private int maxNoofTurnsPerState;
     private int maxNoofActionRetries;
+
     public GamePlan() {
 
         this.startingChipsAmount = 10000;

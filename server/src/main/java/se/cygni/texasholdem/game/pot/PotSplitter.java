@@ -5,7 +5,7 @@ import se.cygni.texasholdem.game.BotPlayer;
 import java.util.*;
 
 /**
- * This class calculates a split of a pot if there are more than one players
+ * This class calculates a split of a pot if there are more than one player
  * with the best hand.
  *
  * @author emil

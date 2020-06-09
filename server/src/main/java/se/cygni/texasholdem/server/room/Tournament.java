@@ -151,6 +151,8 @@ public class Tournament extends Room {
     }
 
     private void partitionActivePlayersOnTables() {
+        long[] lastBlinds = getHighestBlinds();
+
         tables.clear();
         tablesPlayedIds.clear();
 
@@ -162,8 +164,6 @@ public class Tournament extends Room {
         if (partitionedPlayers.size() == 1) {
             playTillNoofPlayersLeft = 0;
         }
-
-        long[] lastBlinds = getHighestBlinds();
 
         for (List<BotPlayer> playersInTable : partitionedPlayers) {
             Table table = new TournamentTable(gamePlan, this, eventBus, sessionManager, playTillNoofPlayersLeft);

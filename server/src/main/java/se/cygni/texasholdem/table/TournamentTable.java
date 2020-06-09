@@ -36,6 +36,7 @@ public class TournamentTable extends Table {
 
         smallBlind = Math.max(gamePlan.getSmallBlindStart(), smallBlind);
         bigBlind = Math.max(gamePlan.getBigBlindStart(), bigBlind);
+
         int roundCounter = 0;
 
         bustedPlayers = GameUtil.getBustedPlayers(players);
