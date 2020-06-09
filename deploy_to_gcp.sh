@@ -1,0 +1,1 @@
+gcloud compute instances update-container texasholdem --container-image docker.io/cygni/texasholdem:server-1.2.2
