@@ -401,12 +401,6 @@ public class GameRound {
             noofPlayers++;
         }
 
-        /*
-        if (pot.getTotalPotAmount() >= 20000) {
-            eventBus.post(new NoteworthyEvent(tableId, round, "Large pot of $" + pot.getTotalPotAmount()));
-        }
-        */
-
         for (final Entry<BotPlayer, Long> entry : payout.entrySet()) {
             final BotPlayer player = entry.getKey();
             final Long amount = entry.getValue();
@@ -424,9 +418,13 @@ public class GameRound {
                 eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + " is busted by " + highestEarner));
             }
 
-            if (amount > 0 && amount > 5000 && amount >= player.getChipAmount()) {
-                eventBus.post(new NoteworthyEvent(tableId, round, "Significant chip move, " + player.getName() + " won $" + amount));
-            }
+            try {
+                long oldChipCount = player.getChipAmount() + pot.getTotalBetAmountForPlayer(player);
+                long newChipCount = player.getChipAmount() + amount;
+                double changeInPercent = (double) newChipCount / (double) oldChipCount;
+                if (changeInPercent >= 1.35)
+                    eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + " won $" + (newChipCount - oldChipCount)));
+            } catch (Exception e) {}
         }
     }
 

@@ -1,15 +1,15 @@
 > docker build -t texasholdemserver .
-> docker tag texasholdemserver:latest cygni/texasholdem:server-1.2.4
+> docker tag texasholdemserver:latest cygni/texasholdem:server-1.2.5
 > docker login (user cygni)
-> docker push cygni/texasholdem:server-1.2.4
+> docker push cygni/texasholdem:server-1.2.5
 
 If deploying to a new instance:
-> gcloud compute instances create-with-container texasholdem --container-image docker.io/cygni/texasholdem:server-1.2.4
+> gcloud compute instances create-with-container texasholdem --container-image docker.io/cygni/texasholdem:server-1.2.5
 
 If redploying:
 (choose correct project first:)
 > gcloud init
-> gcloud compute instances update-container texasholdem --container-image docker.io/cygni/texasholdem:server-1.2.4
+> gcloud compute instances update-container texasholdem --container-image docker.io/cygni/texasholdem:server-1.2.5
 
 
 Push to maven repo:
