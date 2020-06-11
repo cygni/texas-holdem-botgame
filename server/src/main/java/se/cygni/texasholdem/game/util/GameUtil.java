@@ -90,6 +90,8 @@ public final class GameUtil {
         result.remove(smallBlindPlayer);
         result.remove(bigBlindPlayer);
 
+        result.add(smallBlindPlayer);
+        result.add(bigBlindPlayer);
         return result;
     }
 

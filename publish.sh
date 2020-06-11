@@ -2,6 +2,6 @@
 mvn clean compile test deploy
 
 docker build -t texasholdemserver .
-docker tag texasholdemserver:latest cygni/texasholdem:server-1.2.2
+docker tag texasholdemserver:latest cygni/texasholdem:server-1.2.4
 #docker login (user cygni)
-docker push cygni/texasholdem:server-1.2.2
+docker push cygni/texasholdem:server-1.2.4

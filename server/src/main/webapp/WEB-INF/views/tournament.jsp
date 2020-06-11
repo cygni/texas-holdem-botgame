@@ -46,8 +46,6 @@
             url: "/tournament/start/" + id
         });
     }
-
-    var reloadTimer;
 </script>
 
 <div class="container">
@@ -144,6 +142,21 @@
                 {{/tablePartitions}}
                 </tbody>
             </table>
+
+            <h3>Noteworthy events</h3>
+
+            <table class="table table-striped">
+                <tbody>
+                {{#events}}
+                <tr>
+                    <td>{{description}}</td>
+                    <td>
+                        <a class="btn btn-info btn-mini" href="/showgame/table/{{tableId}}/round/{{gameRound}}">{{tableId}} - {{gameRound}}</a>
+                    </td>
+                </tr>
+                {{/events}}
+                </tbody>
+            </table>
         </div>
 
         <div class="span4">
@@ -187,6 +200,21 @@
                     </td>
                 </tr>
                 {{/tablePartitions}}
+                </tbody>
+            </table>
+
+            <h3>Noteworthy events</h3>
+
+            <table class="table table-striped">
+                <tbody>
+                {{#events}}
+                <tr>
+                    <td>{{description}}</td>
+                    <td>
+                        <a class="btn btn-info btn-mini" href="/showgame/table/{{tableId}}/round/{{gameRound}}">{{tableId}} - {{gameRound}}</a>
+                    </td>
+                </tr>
+                {{/events}}
                 </tbody>
             </table>
         </div>

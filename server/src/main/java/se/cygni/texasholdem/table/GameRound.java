@@ -7,8 +7,10 @@ import se.cygni.texasholdem.communication.message.event.*;
 import se.cygni.texasholdem.communication.message.request.ActionRequest;
 import se.cygni.texasholdem.communication.message.response.ActionResponse;
 import se.cygni.texasholdem.dao.model.GameLog;
+import se.cygni.texasholdem.dao.model.NoteworthyEvent;
 import se.cygni.texasholdem.game.*;
 import se.cygni.texasholdem.game.definitions.PlayState;
+import se.cygni.texasholdem.game.definitions.PokerHand;
 import se.cygni.texasholdem.game.pot.Pot;
 import se.cygni.texasholdem.game.util.GameUtil;
 import se.cygni.texasholdem.game.util.PokerHandRankUtil;
@@ -195,24 +197,26 @@ public class GameRound {
 
     protected void getBetsTillPotBalanced() {
 
-        if (pot.isInPlayState(PlayState.PRE_FLOP)) {
-            doInitialBettingRound();
+        boolean isPreflop = pot.isInPlayState(PlayState.PRE_FLOP);
+        if (isPreflop) {
+            doInitialBettingRoundPreflop();
         }
 
         log.debug("Starting normal betting round pot is balanced: {}", pot.isCurrentPlayStateBalanced());
 
-        List<BotPlayer> playersInOrder = GameUtil.getOrderedListOfPlayersInPlay(players, dealerPlayer, pot);
+        List<BotPlayer> playersInOrder = isPreflop ? new ArrayList<>() : GameUtil.getOrderedListOfPlayersInPlay(players, dealerPlayer, pot);
 
-        if (!pot.isInPlayState(PlayState.PRE_FLOP) && GameUtil.getNoofPlayersWithChipsLeft(playersInOrder) < 2) {
+        if (!isPreflop && GameUtil.getNoofPlayersWithChipsLeft(playersInOrder) < 2) {
             log.debug("*** Only one player left in gamebout, moving to next state");
             return;
         }
 
-        boolean isFirstStateRound = true;
-        int betsInState = 0;
-        while (appliesToSpecialRuleForBigBindPlayerAllowedToRaise(betsInState) ||
-                notAllPlayersHasHadAChanceToPlay(playersInOrder) ||
-                (!pot.isCurrentPlayStateBalanced() || isFirstStateRound)) {
+        /*
+            Play should continue when:
+            - pot is unbalanced
+            - whenever not every player has had a chance to play
+         */
+        while (pot.isCurrentPlayStateUnbalanced() || notAllPlayersHasHadAChanceToPlay(playersInOrder)) {
 
             BotPlayer currentPlayer = GameUtil.getNextPlayerInPlay(players, lastPlayerToAct, pot);
             log.debug("Current player is {}", currentPlayer);
@@ -220,8 +224,6 @@ public class GameRound {
             final Action action = prepareAndGetActionFromPlayer(currentPlayer, true);
 
             act(action, currentPlayer);
-            isFirstStateRound = false;
-            betsInState++;
             playersInOrder.remove(currentPlayer);
         }
 
@@ -235,18 +237,7 @@ public class GameRound {
         return stillPlayersLeft;
     }
 
-    protected boolean appliesToSpecialRuleForBigBindPlayerAllowedToRaise(int betsInState) {
-        boolean bigBlindRule = betsInState == 1
-                && lastPlayerToAct.equals(smallBlindPlayer)
-                && pot.isInPlayState(PlayState.PRE_FLOP)
-                && pot.isAbleToBet(bigBlindPlayer);
-
-        if (bigBlindRule)
-            log.debug("Letting Big Blind player use its option to raise");
-
-        return bigBlindRule;
-    }
-    protected void doInitialBettingRound() {
+    protected void doInitialBettingRoundPreflop() {
 
         log.debug("Initial Betting Round starting");
 
@@ -330,7 +321,7 @@ public class GameRound {
             case RAISE:
                 pot.bet(player, action.getAmount());
                 if (player.getChipAmount() == 0) {
-                    log.debug("{} went all in with amount {}", player.getName(), action.getAmount());
+                    log.debug("{} raised but it became an all in with amount {}", player.getName(), action.getAmount());
                     EventBusUtil.postPlayerWentAllIn(eventBus, player, action.getAmount(), players);
                 } else {
                     log.debug("{} raised with amount {}", player.getName(), action.getAmount());
@@ -357,6 +348,8 @@ public class GameRound {
                 .calculatePayout(playerRanking);
 
         final List<PlayerShowDown> showDowns = new ArrayList<PlayerShowDown>();
+
+        analyseForNoteworthyEvents(rankUtil, payout);
 
         // Distribute payout
         for (final Entry<BotPlayer, Long> entry : payout.entrySet()) {
@@ -386,6 +379,55 @@ public class GameRound {
         final ShowDownEvent event = new ShowDownEvent(showDowns);
         EventBusUtil.postToEventBus(eventBus, event, players);
 
+
+    }
+
+    private final void analyseForNoteworthyEvents(PokerHandRankUtil rankUtil, Map<BotPlayer, Long> payout) {
+
+        long chipsOnPlayers = 0;
+        int noofPlayers = 0;
+        long potAmount = 0;
+        long highestPayout = 0;
+        String highestEarner = "";
+
+        for (final Entry<BotPlayer, Long> entry : payout.entrySet()) {
+            final BotPlayer player = entry.getKey();
+            chipsOnPlayers += player.getChipAmount();
+            potAmount += entry.getValue();
+            if (entry.getValue() > highestPayout) {
+                highestEarner = player.getName();
+                highestPayout = entry.getValue();
+            }
+            noofPlayers++;
+        }
+
+        /*
+        if (pot.getTotalPotAmount() >= 20000) {
+            eventBus.post(new NoteworthyEvent(tableId, round, "Large pot of $" + pot.getTotalPotAmount()));
+        }
+        */
+
+        for (final Entry<BotPlayer, Long> entry : payout.entrySet()) {
+            final BotPlayer player = entry.getKey();
+            final Long amount = entry.getValue();
+            final BestHand bestHand = rankUtil.getBestHand(player);
+
+            if (bestHand.getPokerHand().equals(PokerHand.ROYAL_FLUSH)) {
+                eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + " got a Royal Flush!"));
+            }
+
+            if (bestHand.getPokerHand().equals(PokerHand.STRAIGHT_FLUSH)) {
+                eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + " got a Straight Flush!"));
+            }
+
+            if (player.getChipAmount() + amount == 0) {
+                eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + " is busted by " + highestEarner));
+            }
+
+            if (amount > 0 && amount > 5000 && amount >= player.getChipAmount()) {
+                eventBus.post(new NoteworthyEvent(tableId, round, "Significant chip move, " + player.getName() + " won $" + amount));
+            }
+        }
     }
 
     public void removePlayerFromGame(final BotPlayer player) {

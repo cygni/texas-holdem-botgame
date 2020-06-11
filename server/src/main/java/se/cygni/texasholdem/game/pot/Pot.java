@@ -376,6 +376,10 @@ public class Pot {
         return true;
     }
 
+    public boolean isCurrentPlayStateUnbalanced() {
+        return !isCurrentPlayStateBalanced();
+    }
+
     /**
      * Bets are allowed in all states except the last.
      *

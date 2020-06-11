@@ -8,6 +8,9 @@ import org.joda.time.format.PeriodFormatterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.cygni.texasholdem.dao.model.GameLog;
+import se.cygni.texasholdem.dao.model.NoteworthyEvent;
+import se.cygni.texasholdem.dao.model.NoteworthyEventList;
+import se.cygni.texasholdem.dao.model.TournamentLog;
 import se.cygni.texasholdem.dao.model.stats.StatsActions;
 import se.cygni.texasholdem.dao.model.stats.StatsChips;
 import se.cygni.texasholdem.server.eventbus.RegisterForPlayWrapper;
@@ -30,6 +33,7 @@ public final class StatisticsCollector {
     private AtomicLong noofConnections = new AtomicLong();
 
     private CircularBuffer<TableHistory> tableHistories;
+    private CircularBuffer<NoteworthyEventList> noteworthyEvents;
 
 
     public StatisticsCollector() {
@@ -37,6 +41,14 @@ public final class StatisticsCollector {
         tableHistories = new CircularBuffer<TableHistory>(MAX_HISTORY_TABLES, new Comparator<TableHistory>() {
             @Override
             public int compare(TableHistory first, TableHistory second) {
+                return Long.valueOf(first.getTableId()).
+                        compareTo(Long.valueOf(second.getTableId()));
+            }
+        });
+
+        noteworthyEvents = new CircularBuffer<NoteworthyEventList>(MAX_HISTORY_TABLES, new Comparator<NoteworthyEventList>() {
+            @Override
+            public int compare(NoteworthyEventList first, NoteworthyEventList second) {
                 return Long.valueOf(first.getTableId()).
                         compareTo(Long.valueOf(second.getTableId()));
             }
@@ -72,6 +84,18 @@ public final class StatisticsCollector {
         if (tableHistory != null) {
             tableHistory.setGameEnded(true);
         }
+    }
+
+    @Subscribe
+    public void noteworthyEvent(final NoteworthyEvent noteworthyEvent) {
+        NoteworthyEventList eventList = getNoteworthyEventList(noteworthyEvent.getTableId());
+
+        if (eventList == null) {
+            eventList = new NoteworthyEventList(noteworthyEvent.getTableId());
+            noteworthyEvents.add(eventList);
+        }
+
+        eventList.add(noteworthyEvent);
     }
 
     public long getTotalNoofConnectionsMade() {
@@ -202,6 +226,35 @@ public final class StatisticsCollector {
                 return first.getTableId() == tableId;
             }
         });
+    }
+
+    public NoteworthyEventList getNoteworthyEventList(final long tableId) {
+        return noteworthyEvents.get(new ObjectMatcher<NoteworthyEventList>() {
+            @Override
+            public boolean matches(NoteworthyEventList first) {
+                return first.getTableId() == tableId;
+            }
+        });
+    }
+
+    public void appendTournamentLog(TournamentLog log) {
+
+        List<NoteworthyEvent> allEvents = new ArrayList<>();
+        for (long tableId: log.getAllTableIds()) {
+            NoteworthyEventList eventList = getNoteworthyEventList(tableId);
+            if (eventList != null) {
+                allEvents.addAll(eventList.getEvents());
+            }
+        }
+
+        allEvents.sort(new Comparator<NoteworthyEvent>() {
+            @Override
+            public int compare(NoteworthyEvent o1, NoteworthyEvent o2) {
+                return Long.compare(o2.getTstamp(), o1.getTstamp());
+            }
+        });
+
+        log.getEvents().addAll(allEvents);
     }
 
     private class TableHistory {

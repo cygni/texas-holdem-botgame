@@ -8,6 +8,7 @@ import se.cygni.texasholdem.dao.model.TournamentLog;
 import se.cygni.texasholdem.game.util.TournamentUtil;
 import se.cygni.texasholdem.server.room.Tournament;
 import se.cygni.texasholdem.server.session.SessionManager;
+import se.cygni.texasholdem.server.statistics.StatisticsCollector;
 import se.cygni.webapp.controllers.model.StartTournament;
 
 import java.util.Collections;
@@ -21,8 +22,12 @@ public class TournamentController {
     public static final String TOURNAMENT_LIST = "tournamentList";
     public static final String TOURNAMENT_CURRENT = "tournamentCurrent";
     public static final String TOURNAMENT_CURRENT_START = "tournamentCurrentStart";
+
     @Autowired
     SessionManager sessionManager;
+
+    @Autowired
+    StatisticsCollector statisticsCollector;
 
     @RequestMapping(value = "/tournament", method = RequestMethod.GET)
     public String home(@RequestParam(value = "id", required = false) String tournamentId, Locale locale, Model model) {
@@ -63,26 +68,9 @@ public class TournamentController {
     TournamentLog getTournamentLog(
             @PathVariable String tournamentId) {
 
-        return TournamentUtil.createTournamentLog(sessionManager.getTournament(tournamentId));
-    }
-
-
-    @RequestMapping(value = "/tournament/subview", method = RequestMethod.GET)
-    public String updateSubview(@RequestParam(value = "id", required = false) String tournamentId, Locale locale, Model model) {
-        TournamentLog latest = null;
-
-        if (tournamentId != null) {
-            TournamentLog currentTournament = TournamentUtil.createTournamentLog(sessionManager.getTournament(tournamentId));
-
-            if (currentTournament != null) {
-                latest = currentTournament;
-            }
-        }
-
-        model.addAttribute(TOURNAMENT_CURRENT, latest);
-        model.addAttribute(TOURNAMENT_CURRENT_START, new StartTournament(latest.getId()));
-
-        return "tournament_ajax_update";
+        TournamentLog log = TournamentUtil.createTournamentLog(sessionManager.getTournament(tournamentId));
+        statisticsCollector.appendTournamentLog(log);
+        return log;
     }
 
     @RequestMapping(value = "/tournament/start/{tournamentId}", method = RequestMethod.GET)

@@ -19,8 +19,10 @@ public class TournamentLog {
     private final List<Long> allTableIds;
     private final List<TablePartition> tablePartitions;
 
+    private final List<NoteworthyEvent> events;
     private final Date created;
     private final SimpleDateFormat sdf;
+
 
     public TournamentLog(
             String id,
@@ -48,6 +50,7 @@ public class TournamentLog {
         this.allTableIds = tableIds;
 
         sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        events = new ArrayList<>();
     }
 
 
@@ -95,5 +98,9 @@ public class TournamentLog {
             return "Running";
         }
         return "Finished";
+    }
+
+    public List<NoteworthyEvent> getEvents() {
+        return events;
     }
 }

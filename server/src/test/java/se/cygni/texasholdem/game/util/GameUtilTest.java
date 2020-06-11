@@ -57,6 +57,8 @@ public class GameUtilTest {
         BotPlayer smallBlind = expectedOrder.remove(1);
         BotPlayer bigBlind = expectedOrder.remove(2);
         expectedOrder.add(dealer);
+        expectedOrder.add(smallBlind);
+        expectedOrder.add(bigBlind);
 
         assertEqualList(expectedOrder, GameUtil.getOrderedListOfPlayersInPlayPreFlop(players, dealer, smallBlind, bigBlind, pot));
     }

@@ -172,8 +172,9 @@
         });
 
         var requestedTableId = '${tableId}';
+        var requestedGameRoundNo = '${gameRoundNo}' || -1;
         if (requestedTableId) {
-            updateGameViewWith(requestedTableId, -1);
+            updateGameViewWith(requestedTableId, requestedGameRoundNo);
         } else {
             updateGameViewWith(-1, -1);
         }

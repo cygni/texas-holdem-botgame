@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import se.cygni.texasholdem.dao.model.GameLog;
+import se.cygni.texasholdem.dao.model.NoteworthyEventList;
 import se.cygni.texasholdem.dao.model.stats.StatsActions;
 import se.cygni.texasholdem.dao.model.stats.StatsChips;
 import se.cygni.texasholdem.server.session.SessionManager;
@@ -43,6 +44,19 @@ public class ShowGameController {
 
         GameLog gamelog = statisticsCollector.getLastGameLog(tableId);
         model.addAttribute("tableId", tableId);
+        model.addAttribute("gameLog", gamelog);
+        model.addAttribute("position", getGameNavigation(gamelog));
+        model.addAttribute("tableIds", getReversedListOfTableIds());
+
+        return "showgame";
+    }
+
+    @RequestMapping(value = "/showgame/table/{tableId}/round/{round}", method = RequestMethod.GET)
+    public String showTableAndGame(@PathVariable long tableId, @PathVariable long round, Model model) {
+
+        GameLog gamelog = statisticsCollector.getGameLogAtPos(tableId, (int)round);
+        model.addAttribute("tableId", tableId);
+        model.addAttribute("gameRoundNo", round);
         model.addAttribute("gameLog", gamelog);
         model.addAttribute("position", getGameNavigation(gamelog));
         model.addAttribute("tableIds", getReversedListOfTableIds());
@@ -94,6 +108,15 @@ public class ShowGameController {
             @PathVariable int gameRound) {
 
         return statisticsCollector.getStatsChips(tableId, gameRound);
+    }
+
+    @RequestMapping(value = "/showevents/table/{tableId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    NoteworthyEventList getNoteworthyEvents(
+            @PathVariable long tableId) {
+
+        return statisticsCollector.getNoteworthyEventList(tableId);
     }
 
     private List<Long> getReversedListOfTableIds() {
