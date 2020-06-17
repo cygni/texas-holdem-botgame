@@ -406,12 +406,9 @@ public class GameRound {
             final Long amount = entry.getValue();
             final BestHand bestHand = rankUtil.getBestHand(player);
 
-            if (bestHand.getPokerHand().equals(PokerHand.ROYAL_FLUSH)) {
-                eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + " got a Royal Flush!"));
-            }
-
-            if (bestHand.getPokerHand().equals(PokerHand.STRAIGHT_FLUSH)) {
-                eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + " got a Straight Flush!"));
+            if (bestHand.getPokerHand().getOrderValue() > 8) {
+                String msg = pot.hasFolded(player) ? " could have had a " : " got a ";
+                eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + msg + bestHand.getPokerHand().getName() + "!"));
             }
 
             if (player.getChipAmount() + amount == 0) {
@@ -421,8 +418,10 @@ public class GameRound {
             try {
                 long oldChipCount = player.getChipAmount() + pot.getTotalBetAmountForPlayer(player);
                 long newChipCount = player.getChipAmount() + amount;
+                long actualWinnings = newChipCount - oldChipCount;
+
                 double changeInPercent = (double) newChipCount / (double) oldChipCount;
-                if (changeInPercent >= 1.35)
+                if (changeInPercent >= 1.35 && actualWinnings > 5000)
                     eventBus.post(new NoteworthyEvent(tableId, round, player.getName() + " won $" + (newChipCount - oldChipCount)));
             } catch (Exception e) {}
         }

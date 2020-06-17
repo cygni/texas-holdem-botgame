@@ -20,8 +20,6 @@ import java.util.Locale;
 public class TournamentController {
 
     public static final String TOURNAMENT_LIST = "tournamentList";
-    public static final String TOURNAMENT_CURRENT = "tournamentCurrent";
-    public static final String TOURNAMENT_CURRENT_START = "tournamentCurrentStart";
 
     @Autowired
     SessionManager sessionManager;
@@ -37,27 +35,21 @@ public class TournamentController {
         TournamentLog latest = TournamentUtil.createTournamentLog(sessionManager.getAvailableTournament());
         tournamentLogs.add(0, latest);
 
-        if (tournamentId != null) {
-            TournamentLog currentTournament = TournamentUtil.createTournamentLog(sessionManager.getTournament(tournamentId));
-
-            if (currentTournament != null) {
-                latest = currentTournament;
-            }
-        }
-
         Collections.sort(tournamentLogs, new Comparator<TournamentLog>() {
             @Override
             public int compare(TournamentLog tl, TournamentLog tl1) {
                 Long l = Long.valueOf(tl.getTournamentCounter());
                 Long l1 = Long.valueOf(tl1.getTournamentCounter());
+
+                if (l == null || l1 == null) {
+                    return -1;
+                }
                 // Reverse order
                 return l1.compareTo(l);
             }
         });
 
         model.addAttribute(TOURNAMENT_LIST, tournamentLogs);
-        model.addAttribute(TOURNAMENT_CURRENT, latest);
-        model.addAttribute(TOURNAMENT_CURRENT_START, new StartTournament(latest.getId()));
 
         return "tournament";
     }

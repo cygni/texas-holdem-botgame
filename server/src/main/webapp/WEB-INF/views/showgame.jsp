@@ -442,7 +442,7 @@
                 <tr>
                     <td>
                         {{name}} <br/>
-                        {{#dealer}}Dealer{{/dealer}}
+                        {{#dealer}}Dealer {{/dealer}}
                         {{#bigBlind}}Big Blind ($ {{bigBlindValue}}){{/bigBlind}}
                         {{#smallBlind}}Small Blind ($ {{smallBlindValue}}){{/smallBlind}}
                     </td>
