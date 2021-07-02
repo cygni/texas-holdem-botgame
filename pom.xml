@@ -189,7 +189,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <org.springframework.version>5.2.3.RELEASE</org.springframework.version>
-        <org.springsecurity.version>5.2.1.RELEASE</org.springsecurity.version>
+        <org.springsecurity.version>5.2.11.RELEASE</org.springsecurity.version>
         <slf4j.version>1.7.30</slf4j.version>
         <jackson.version>1.9.11</jackson.version>
         <jetty.version>9.4.25.v20191220</jetty.version>
